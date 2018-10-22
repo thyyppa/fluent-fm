@@ -33,11 +33,29 @@ All records must contain the following fields:
 - updated_at
 - deleted_at
 
-All fields that you wish to access must be available in the layout that you provide while performing FileMaker operations.
+All fields that you wish to access must be available in the layout that you provide while performing FileMaker operations through the api.
 
-Ideally these will be hidden layouts that contain all fields raw mirroring the table, but depending on your layout structure you may be able to use existing human-facing layouts. 
+Ideally these will be hidden layouts that contain all fields raw, mirroring the table, but depending on your layout structure you may be able to use existing human-facing layouts. 
 
-![](./assets/container.png)
+| ![](./assets/layout_thumbnail.png) | ![](./assets/container_thumbnail.png) |
+|:---:|:---:|
+| ![](./assets/database_thumbnail.png) ||
+
+Ensure that `fmrest` is enabled on your privilege set, which you can define in 
+
+`File > Manage > Security > [highlight user] > Privilege Set [Edit]`
+
+![](./assets/privileges_thumbnail.png)
+
+Also be sure that the Data API is enabled on the server.
+
+If your server is installed locally this link should take you there:
+
+[http://localhost:16001/admin-console/app/connectors/fmdapi](http://localhost:16001/admin-console/app/connectors/fmdapi)
+
+Otherwise replace `localhost` with the server address.
+
+![](./assets/admin_thumbnail.png)
 
 ---
   
