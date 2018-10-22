@@ -1,0 +1,32 @@
+{
+    "name":        "thyyppa/fluent-fm",
+    "description": "A PHP package for FileMaker Server's Data API using a fluent query builder style interface.",
+    "type":        "library",
+    "license":     "MIT",
+    "authors":     [
+        {
+            "name":  "Travis Hyyppä",
+            "email": "travishyyppa@gmail.com"
+        }
+    ],
+    "require":     {
+        "php":                  "^7.1",
+        "guzzlehttp/guzzle":    "6.3.*",
+        "ext-json":             "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit":      "7.4.0",
+        "nunomaduro/collision": "v2.1.0",
+        "symfony/var-dumper":   "^4.1"
+    },
+    "autoload":    {
+        "psr-4": {
+            "Hyyppa\\FluentFM\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    }
+}

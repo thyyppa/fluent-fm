@@ -1,0 +1,28 @@
+{
+  "response": {
+    "data": [
+      {
+        "fieldData":  {
+          "id":         "1",
+          "field_x":    "x",
+          "field_y":    "y",
+          "field_z":    "z",
+          "created_at": "",
+          "updated_at": "",
+          "deleted_at": ""
+        },
+        "portalData": {
+          "table_b": []
+        },
+        "recordId":   "1",
+        "modId":      "3"
+      }
+    ]
+  },
+  "messages": [
+    {
+      "code":    "0",
+      "message": "OK"
+    }
+  ]
+}

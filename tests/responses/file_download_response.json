@@ -1,0 +1,24 @@
+{
+  "response": {
+    "data": [
+      {
+        "fieldData":  {
+          "id":         "1",
+          "file":       "__stream__",
+          "created_at": "",
+          "updated_at": "",
+          "deleted_at": ""
+        },
+        "portalData": {},
+        "recordId":   "1",
+        "modId":      "1"
+      }
+    ]
+  },
+  "messages": [
+    {
+      "code":    "0",
+      "message": "OK"
+    }
+  ]
+}
