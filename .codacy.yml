@@ -1,0 +1,26 @@
+---
+engines:
+  phpcs:
+    enabled: true
+    php_version: 7.1
+    exclude_paths:
+      - ./tests/**
+      - ./vendor/**
+  duplication:
+    enabled: true
+    exclude_paths:
+      - ./tests/**
+      - ./vendor/**
+  metrics:
+    enabled: true
+    exclude_paths:
+      - ./tests/**
+      - ./vendor/**
+  coverage:
+    enabled: true
+    exclude_paths:
+      - ./tests/**
+      - ./vendor/**
+exclude_paths:
+  - ./tests/**
+  - ./vendor/**
