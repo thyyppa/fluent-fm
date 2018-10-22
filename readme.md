@@ -75,21 +75,17 @@ $fm = new FluentFMRepository([
     'pass' => 'secret',   
 ]);  
   
-// get a single record
+// get a single record as array
 $record = $fm->record('layout', 'id')->get();
 
-// get multiple records
+// get multiple records as array
 $records = $fm->records('layout')->limit(10)->get();  
-
-var_dump($record, $records);
 ```
 
 #### Performing a find operation
 
 ```php
 $bobs = $fm->find('customers')->where('first','Bob')->get();
-
-var_dump($bobs);  
 ```
 
 #### Creating a record
@@ -106,8 +102,10 @@ $recordId = $fm->create('customers', [
 #### Updating a record
 
 ```php
+// if multiple records are matched each will be updated
 $fm->update('customers', [ 'phone' => '406-555-0199' ])
    ->where('id',13)
+   ->limit(1)
    ->exec();
 ```
 
@@ -117,28 +115,35 @@ $fm->update('customers', [ 'phone' => '406-555-0199' ])
 // hard delete removes record
 $fm->delete('customers')
    ->where('id',13)
+   ->limit(1)
    ->exec();
 
 // soft delete sets record's deleted_at field
 $fm->softDelete('customers')
    ->where('id',13)
+   ->limit(1)
    ->exec();
 
 // undeletes soft deleted records
 $fm->undelete('customers')
    ->where('id',13)
+   ->limit(1)
    ->exec();
 ```
 
 #### Uploading and downloading files to a record's container
 
 ```php
+// if query matches multiple, file will be added to each
 $fm->upload('customers', 'photo', './path/to/photo.jpg')
    ->where('id', 13)
+   ->limit(1)
    ->exec();
-   
+
+// if query matches multiple, all files will be downloaded to path
 $fm->download('customers', 'photo', './save/to/path/')
    ->where('id', 13)
+   ->limit(1)
    ->exec();
 ```
 
@@ -146,7 +151,7 @@ $fm->download('customers', 'photo', './save/to/path/')
 
 ```php
 $fm->find('customers')
-   ->where('id', 13)
+   ->where('id',13)
    ->script('scriptname', 'parameter')
    ->presort('presort_scriptname', 'presort_scriptparam')
    ->prerequest('prerequest_scriptname', 'prerequest_scriptparam')
@@ -158,53 +163,62 @@ $fm->find('customers')
 #### Chainable commands
 
 ```php
-find( <layout> )
-update( <layout>, [fields], [recordId] )
-delete( <layout>, [recordId] )
-softDelete( <layout>, [recordId] )
-undelete( <layout>, [recordId] )
-upload( <layout>, <field>, <filename>, [recordId] )
-download( <layout>, <field>, [output_dir], [recordId] )
+...
+
+->find( <layout> )
+->update( <layout>, [fields], [recordId] )
+->delete( <layout>, [recordId] )
+->softDelete( <layout>, [recordId] )
+->undelete( <layout>, [recordId] )
+->upload( <layout>, <field>, <filename>, [recordId] )
+->download( <layout>, <field>, [output_dir], [recordId] )
 ```
 
 #### Chainable modifiers
 
 ```php
-record( <layout>, <id> )
-records( <layout>, [id] )
-limit( <limit> )
-offset( <offset> )
-sort( <field>, [ascending] )
-sortAsc( <field> )
-sortDesc( <field> )
-withPortals()
-withoutPortals()
-where( <field>, <params> )
-whereEmpty( <field> )
-has( <field> )
-whereNotEmpty( <field> )
-withDeleted()
-script( <script>, [param], [type] )
-prerequest( <script>, [param] )
-presort( <script>, [param] )
+...
+
+->record( <layout>, <id> )
+->records( <layout>, [id] )
+->limit( <limit> )
+->offset( <offset> )
+->sort( <field>, [ascending] )
+->sortAsc( <field> )
+->sortDesc( <field> )
+->withPortals()
+->withoutPortals()
+->where( <field>, <params> )
+->whereEmpty( <field> )
+->has( <field> )
+->whereNotEmpty( <field> )
+->withDeleted()
+->script( <script>, [param], [type] )
+->prerequest( <script>, [param] )
+->presort( <script>, [param] )
 ```
 
 #### End of chain methods
 
 ```php
-get()
-exec()
-create( <layout>, [fields] )
-latest( <layout>, [field] )
-lastUpdate( <layout> )
-oldest( <layout>, [field] )
-first()
-last()
+...
+
+->get()
+->exec()
+->create( <layout>, [fields] )
+->latest( <layout>, [field] )
+->lastUpdate( <layout> )
+->oldest( <layout>, [field] )
+->first()
+->last()
 ```
 
 #### Misc commands
 ```php
-global( [table], [key=>value] )
+...
+
+// set global fields on table
+->global( [table], [ key => value ] )
 ```
 
 
