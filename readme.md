@@ -1,5 +1,5 @@
 
-# FluentFM [![Build Status](https://travis-ci.org/thyyppa/fluent-fm.svg?branch=master)](https://travis-ci.org/thyyppa/fluent-fm)
+# FluentFM [![](https://travis-ci.org/thyyppa/fluent-fm.svg?branch=master)](https://travis-ci.org/thyyppa/fluent-fm) [![](https://api.codacy.com/project/badge/Grade/29e65ac0bb954b33a0f05a28465e11f9)](https://www.codacy.com/app/thyyppa/fluent-fm?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thyyppa/fluent-fm&amp;utm_campaign=Badge_Grade)
 
 FluentFM is a PHP package that connects to FileMaker Server's Data API using a fluent query builder style interface.
   
