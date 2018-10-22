@@ -1,8 +1,8 @@
 
-# FluentFM [![](https://travis-ci.org/thyyppa/fluent-fm.svg?branch=master)](https://travis-ci.org/thyyppa/fluent-fm) [![](https://api.codacy.com/project/badge/Grade/29e65ac0bb954b33a0f05a28465e11f9)](https://www.codacy.com/app/thyyppa/fluent-fm?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thyyppa/fluent-fm&amp;utm_campaign=Badge_Grade)
+# FluentFM [![](https://travis-ci.org/thyyppa/fluent-fm.svg?branch=master)](https://travis-ci.org/thyyppa/fluent-fm)
 
 FluentFM is a PHP package that connects to FileMaker Server's Data API using a fluent query builder style interface.
-  
+
 ### Requirements  
 
 - PHP 7.1+  
@@ -24,9 +24,6 @@ or include in your `composer.json` file
     }  
 }  
 ```  
-  
-  
-### Usage
 
 #### Prepare FileMaker
 
@@ -39,6 +36,12 @@ All records must contain the following fields:
 All fields that you wish to access must be available in the layout that you provide while performing FileMaker operations.
 
 Ideally these will be hidden layouts that contain all fields raw mirroring the table, but depending on your layout structure you may be able to use existing human-facing layouts. 
+
+![](./assets/container.png)
+
+---
+  
+### Usage
 
 #### Getting records from layout
 
