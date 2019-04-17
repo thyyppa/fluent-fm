@@ -182,9 +182,9 @@ interface FluentFM
      * @param string $layout
      * @param string $field
      *
-     * @return mixed
-     *@throws FilemakerException
+     * @throws FilemakerException
      *
+     * @return mixed
      */
     public function lastUpdate(string $layout, string $field = 'updated_at');
 
