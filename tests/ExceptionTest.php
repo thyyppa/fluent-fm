@@ -1,4 +1,6 @@
-<?php namespace Test;
+<?php
+
+namespace Test;
 
 use GuzzleHttp\Psr7\Response;
 use Hyyppa\FluentFM\Connection\FluentFMRepository;
@@ -6,7 +8,6 @@ use Hyyppa\FluentFM\Exception\FilemakerException;
 
 class ExceptionTest extends TestBase
 {
-
     public function testAuthFailedAfterRetry() : void
     {
         $this->expectException( FilemakerException::class );
@@ -20,7 +21,6 @@ class ExceptionTest extends TestBase
         $fm->records( 'table_a' )->get();
     }
 
-
     public function testLayoutMissing() : void
     {
         $this->expectException( FilemakerException::class );
@@ -28,10 +28,9 @@ class ExceptionTest extends TestBase
 
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 500, [], file_get_contents( __DIR__ . '/responses/layout_missing.json' ) ),
+            new Response( 500, [], file_get_contents( __DIR__.'/responses/layout_missing.json' ) ),
         ] ) );
 
         $fm->records( 'table_z' )->get();
     }
-
 }

@@ -1,13 +1,13 @@
-<?php namespace Hyyppa\FluentFM\Connection;
+<?php
+
+namespace Hyyppa\FluentFM\Connection;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Hyyppa\FluentFM\Exception\FilemakerException;
 
 /**
- * Class BaseConnection
- *
- * @package Hyyppa\FluentFM\Connection
+ * Class BaseConnection.
  */
 abstract class BaseConnection
 {
@@ -37,7 +37,6 @@ abstract class BaseConnection
      */
     protected $field_cache = [];
 
-
     /**
      * BaseConnection constructor.
      *
@@ -46,7 +45,7 @@ abstract class BaseConnection
      *
      * @throws FilemakerException
      */
-    public function __construct( array $config, Client $client = null )
+    public function __construct(array $config, Client $client = null)
     {
         $this->config = $config;
         $this->client = $client ?? new Client( [
@@ -62,44 +61,43 @@ abstract class BaseConnection
         $this->getToken();
     }
 
-
     /**
      * Get specified value from config, or if not specified
-     * the entire config array
+     * the entire config array.
      *
      * @param string|null $key
      *
      * @return array|mixed
      */
-    protected function config( string $key = null )
+    protected function config(string $key = null)
     {
         return $key ? $this->config[ $key ] : $this->config;
     }
 
-
     /**
-     * Generate authorization header
+     * Generate authorization header.
+     *
+     * @throws FilemakerException
      *
      * @return array
-     * @throws FilemakerException
      */
     protected function authHeader() : array
     {
-        if( ! $this->token ) {
+        if ( !$this->token ) {
             $this->getToken();
         }
 
         return [
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer '.$this->token,
         ];
     }
 
-
     /**
-     * Request api access token from server
+     * Request api access token from server.
+     *
+     * @throws FilemakerException
      *
      * @return string
-     * @throws FilemakerException
      */
     protected function getToken() : string
     {
@@ -107,13 +105,11 @@ abstract class BaseConnection
             return $this->token = $this->client->post( 'sessions', [
                 'headers' => [
                     'Content-Type'  => 'application/json',
-                    'Authorization' => 'Basic ' . base64_encode( $this->config( 'user' ) . ':' . $this->config( 'pass' ) ),
+                    'Authorization' => 'Basic '.base64_encode( $this->config( 'user' ).':'.$this->config( 'pass' ) ),
                 ],
             ] )->getHeader( 'X-FM-Data-Access-Token' )[ 0 ];
-        }
-        catch( ClientException $e ) {
+        } catch ( ClientException $e ) {
             throw new FilemakerException( 'Filemaker access unauthorized - please check your credentials', 401 );
         }
     }
-
 }

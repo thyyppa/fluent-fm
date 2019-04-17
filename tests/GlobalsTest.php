@@ -1,4 +1,6 @@
-<?php namespace Test;
+<?php
+
+namespace Test;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -6,13 +8,12 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class GlobalsTest extends TestBase
 {
-
     public function testSetGlobals()
     {
         //todo: proper response
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/OK.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/OK.json' ) ),
         ] ) );
 
         $this->assertTrue(

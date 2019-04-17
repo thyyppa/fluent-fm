@@ -1,4 +1,6 @@
-<?php namespace Test;
+<?php
+
+namespace Test;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -6,13 +8,12 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class DeleteTest extends TestBase
 {
-
     public function testDelete() : void
     {
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/update_response_find.json' ) ),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/delete_response.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/update_response_find.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/delete_response.json' ) ),
         ] ) );
 
         $this->assertTrue(
@@ -35,13 +36,12 @@ class DeleteTest extends TestBase
         );
     }
 
-
     public function testSoftDelete() : void
     {
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/update_response_find.json' ) ),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/soft_delete_response.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/update_response_find.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/soft_delete_response.json' ) ),
         ] ) );
 
         $fm->softDelete( 'table_a' )
@@ -54,5 +54,4 @@ class DeleteTest extends TestBase
         $this->assertEquals( 'layouts/table_a/records/1', $request->getUri()->getPath() );
         $this->assertContains( '{"fieldData":{"deleted_at":', $request->getBody()->getContents() );
     }
-
 }

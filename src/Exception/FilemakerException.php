@@ -1,11 +1,10 @@
-<?php namespace Hyyppa\FluentFM\Exception;
+<?php
+
+namespace Hyyppa\FluentFM\Exception;
 
 /**
- * Class FilemakerException
- *
- * @package Hyyppa\FluentFM\Exception
+ * Class FilemakerException.
  */
 class FilemakerException extends \Exception
 {
-
 }

@@ -1,4 +1,6 @@
-<?php namespace Test;
+<?php
+
+namespace Test;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -6,12 +8,11 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class ScriptTest extends TestBase
 {
-
     public function testScriptPost()
     {
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/records.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/records.json' ) ),
         ] ) );
 
         $fm->find( 'tabla_a' )
@@ -29,12 +30,11 @@ class ScriptTest extends TestBase
         );
     }
 
-
     public function testScriptQuery()
     {
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/records.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/records.json' ) ),
         ] ) );
 
         $fm->records( 'table_a' )
@@ -49,6 +49,5 @@ class ScriptTest extends TestBase
             'script=scriptname&script.param=scriptparam&script.prerequest=prerequest_scriptname&script.prerequest.param=prerequest_scriptparam&script.presort=presort_scriptname&script.presort.param=presort_scriptparam',
             $request->getUri()->getQuery()
         );
-
     }
 }

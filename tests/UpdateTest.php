@@ -1,4 +1,6 @@
-<?php namespace Test;
+<?php
+
+namespace Test;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -6,13 +8,12 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class UpdateTest extends TestBase
 {
-
     public function testUpdate() : void
     {
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/update_response_find.json' ) ),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/update_response.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/update_response_find.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/update_response.json' ) ),
         ] ) );
 
         $data = [
@@ -34,5 +35,4 @@ class UpdateTest extends TestBase
         $this->assertEquals( 'layouts/table_a/records/1', $request->getUri()->getPath() );
         $this->assertEquals( json_encode( [ 'fieldData' => $data ] ), $request->getBody()->getContents() );
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace Test;
+<?php
+
+namespace Test;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -9,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class TestBase extends TestCase
 {
-
     protected static $config = [
         'host' => '__hostname__',
         'file' => '__filemaker__',
@@ -19,7 +20,6 @@ class TestBase extends TestCase
 
     protected $history      = [];
     protected $real_history = [];
-
 
     /**
      * @return Response
@@ -31,13 +31,12 @@ class TestBase extends TestCase
         ] );
     }
 
-
     /**
      * @param array $responses
      *
      * @return Client
      */
-    protected function client( array $responses = [] ) : Client
+    protected function client(array $responses = []) : Client
     {
         $this->history = [];
 
@@ -51,5 +50,4 @@ class TestBase extends TestCase
             'handler' => $stack,
         ] );
     }
-
 }

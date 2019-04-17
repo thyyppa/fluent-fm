@@ -1,4 +1,6 @@
-<?php namespace Test;
+<?php
+
+namespace Test;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -11,7 +13,7 @@ class CreateTest extends TestBase
     {
         $fm = new FluentFMRepository( static::$config, $this->client( [
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__ . '/responses/create.json' ) ),
+            new Response( 200, [], file_get_contents( __DIR__.'/responses/create.json' ) ),
         ] ) );
 
         $data = [
@@ -32,5 +34,4 @@ class CreateTest extends TestBase
             json_encode( [ 'fieldData' => $data ] )
         );
     }
-
 }
