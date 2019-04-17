@@ -60,7 +60,7 @@ Content-Type: image/png'
         $this->assertEquals( 'layouts/table_c/_find', $request->getUri()->getPath() );
         $this->assertEquals(
             $request->getBody()->getContents(),
-            '{"limit":1,"query":[{"id":"=1","deleted_at":"="}]}'
+            '{"limit":1,"query":[{"id":"=1"}]}'
         );
     }
 }

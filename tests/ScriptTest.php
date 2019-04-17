@@ -24,7 +24,7 @@ class ScriptTest extends TestBase
         /** @var Request $request */
         $request = $this->history[ 1 ][ 'request' ];
         $this->assertEquals(
-            '{"query":[{"id":"=1","deleted_at":"="}],"script":"scriptname","script.param":"scriptparam","script.prerequest":"prerequest_scriptname","script.prerequest.param":"prerequest_scriptparam","script.presort":"presort_scriptname","script.presort.param":"presort_scriptparam"}',
+            '{"query":[{"id":"=1"}],"script":"scriptname","script.param":"scriptparam","script.prerequest":"prerequest_scriptname","script.prerequest.param":"prerequest_scriptparam","script.presort":"presort_scriptname","script.presort.param":"presort_scriptparam"}',
             $request->getBody()->getContents()
         );
     }

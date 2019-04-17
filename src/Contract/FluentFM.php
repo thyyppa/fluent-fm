@@ -342,6 +342,14 @@ interface FluentFM
 
 
     /**
+     * Exclude records that have their deleted_at field set
+     *
+     * @return FluentFM
+     */
+    public function withoutDeleted() : FluentFM;
+
+
+    /**
      * Run FileMaker script with param. If no type specified script will run
      * after requested action and sorting is complete.
      *

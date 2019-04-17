@@ -23,7 +23,7 @@ trait FluentQuery
     /**
      * @var bool
      */
-    protected $with_deleted = false;
+    protected $with_deleted = true;
 
 
     /**
@@ -267,6 +267,19 @@ trait FluentQuery
 
 
     /**
+     * Exclude records that have their deleted_at field set
+     *
+     * @return FluentFM
+     */
+    public function withoutDeleted() : FluentFM
+    {
+        $this->with_deleted = false;
+
+        return $this;
+    }
+
+
+    /**
      * Include records that have their deleted_at field set
      *
      * @return FluentFM
@@ -300,7 +313,7 @@ trait FluentQuery
         ];
 
         $this->with_portals = false;
-        $this->with_deleted = false;
+        $this->with_deleted = true;
 
         return $this;
     }

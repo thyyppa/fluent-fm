@@ -27,11 +27,13 @@ or include in your `composer.json` file
 
 #### Prepare FileMaker
 
-All records must contain the following fields:
-- id
+**Important! All tables and layouts *must* contain an `id` field.**
+
+If you wish to use soft deletes your table and layout *must* contain the field `deleted_at`
+
+The following fields are also recommended:
 - created_at
 - updated_at
-- deleted_at
 
 All fields that you wish to access must be available in the layout that you provide while performing FileMaker operations through the api.
 
@@ -111,6 +113,8 @@ $fm->update('customers', [ 'phone' => '406-555-0199' ])
 
 #### Deleting records
 
+If you wish to use soft deletes your table and layout *must* contain the field `deleted_at`
+
 ```php
 // hard delete removes record
 $fm->delete('customers')
@@ -129,6 +133,20 @@ $fm->undelete('customers')
    ->where('id',13)
    ->limit(1)
    ->exec();
+
+// returns matching records that have not been soft deleted
+$active = $fm
+    ->find('customers')
+    ->where('first','Bob')
+    ->withoutDeleted()
+    ->get();
+
+// returns matching records even if soft deleted (default behavior)
+$all = $fm
+    ->find('customers')
+    ->where('first','Bob')
+    ->withDeleted()
+    ->get();
 ```
 
 #### Uploading and downloading files to a record's container
@@ -193,6 +211,7 @@ $fm->find('customers')
 ->has( <field> )
 ->whereNotEmpty( <field> )
 ->withDeleted()
+->withoutDeleted()
 ->script( <script>, [param], [type] )
 ->prerequest( <script>, [param] )
 ->presort( <script>, [param] )
