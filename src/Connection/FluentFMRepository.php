@@ -279,7 +279,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             return $this->field_cache[ $layout ];
         }
 
-        $id          = $this->create( $layout, [ 'created_at' => date( 'm/d/Y H:i:s' ) ] );
+        $id          = $this->create( $layout );
         $temp_record = $this->record( $layout, $id )->first();
         $fields      = array_keys( $temp_record );
         $this->delete( $layout, $id )->exec();
