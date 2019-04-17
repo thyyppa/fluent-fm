@@ -32,8 +32,8 @@ or include in your `composer.json` file
 If you wish to use soft deletes your table and layout *must* contain the field `deleted_at`
 
 The following fields are also recommended:
-- created_at
-- updated_at
+- `created_at` (for sorting by latest)
+- `updated_at` (for sorting by last update)
 
 All fields that you wish to access must be available in the layout that you provide while performing FileMaker operations through the api.
 
@@ -225,9 +225,9 @@ $fm->find('customers')
 ->get()
 ->exec()
 ->create( <layout>, [fields] )
-->latest( <layout>, [field] )
-->lastUpdate( <layout> )
-->oldest( <layout>, [field] )
+->latest( <layout>, [field] )       # table must have created_at field if [field] undefined 
+->oldest( <layout>, [field] )       # table must have created_at field if [field] undefined 
+->lastUpdate( <layout>, [field] )   # table must have updated_at field if [field] undefined 
 ->first()
 ->last()
 ```
