@@ -180,12 +180,13 @@ interface FluentFM
      * Get the most recently updated record in table.
      *
      * @param string $layout
-     *
-     * @throws FilemakerException
+     * @param string $field
      *
      * @return mixed
+     *@throws FilemakerException
+     *
      */
-    public function lastUpdate(string $layout);
+    public function lastUpdate(string $layout, string $field = 'updated_at');
 
     /**
      * Get the oldest record in table.

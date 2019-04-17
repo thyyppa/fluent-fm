@@ -355,9 +355,9 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     /**
      * {@inheritdoc}
      */
-    public function lastUpdate(string $layout)
+    public function lastUpdate(string $layout, string $field = 'updated_at')
     {
-        return $this->records( $layout )->sortDesc( 'updated_at' )->limit( 1 )->first();
+        return $this->records( $layout )->sortDesc( $field )->limit( 1 )->first();
     }
 
     /**
