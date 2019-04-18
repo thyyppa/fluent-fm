@@ -2,6 +2,7 @@
 
 namespace Hyyppa\FluentFM\Connection;
 
+use Hyyppa\FluentFM\Exception\ExceptionMessages;
 use Hyyppa\FluentFM\Exception\FilemakerException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -84,6 +85,11 @@ class Response
         switch ( $message->code ) {
             case  0:
                 return;
+            case  102:
+                throw new FilemakerException(
+                    ExceptionMessages::fieldMissing( $message ),
+                    $message->code
+                );
             default:
                 throw new FilemakerException(
                     sprintf( 'FileMaker returned error %d - %s', $message->code, $message->message ),
