@@ -59,7 +59,11 @@ Please review the payload that was sent to FileMaker:
     {
         return self::sep( self::baseMessage( $message ) )
                . self::textWrap(
-                'FileMaker did not specify which field, please review the payload that was sent:'
+                'FileMaker did not specify which field, but it is often due to creating a record without the `id` field. 
+Double check for fields that are required by the FileMaker table.
+Also check that you are not trying to add a duplicate value to a field defined as unique. This can often happen with unique `id` fields
+
+Please review the payload that was sent:'
                 . PHP_EOL
                 . self::queryDump( $query )
             ) . self::sep();
@@ -123,7 +127,7 @@ Please review the payload that was sent to FileMaker:
             $array
         );
 
-        return PHP_EOL . '$request = ' . implode( PHP_EOL, array_filter( [ '[' ] + $array ) ) . ';';
+        return PHP_EOL . '$payload = ' . implode( PHP_EOL, array_filter( [ '[' ] + $array ) ) . ';';
     }
 
 }
