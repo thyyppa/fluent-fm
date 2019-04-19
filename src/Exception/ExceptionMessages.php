@@ -21,7 +21,7 @@ class ExceptionMessages
      *
      * @return string
      */
-    public function generic( $message, array $query ) : string
+    public static function generic( $message, array $query ) : string
     {
         return self::sep( self::baseMessage( $message ) )
                . self::textWrap(
