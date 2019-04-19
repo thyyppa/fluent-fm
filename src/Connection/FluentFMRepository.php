@@ -46,7 +46,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 'query'        => $this->queryString(),
             ] );
 
-            Response::check( $response, $this->query );
+            Response::check( $response, $this->queryString() );
 
             return Response::records( $response, $this->with_portals );
         };
@@ -67,7 +67,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 'json'         => array_filter( $this->query ),
             ] );
 
-            Response::check( $response, $this->query );
+            Response::check( $response, array_filter( $this->query ) );
 
             return Response::records( $response, $this->with_portals );
         };
@@ -88,7 +88,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 'json'         => [ 'fieldData' => array_filter( $fields ) ],
             ] );
 
-            Response::check( $response, $this->query );
+            Response::check( $response, [ 'fieldData' => array_filter( $fields ) ] );
 
             return (int)Response::body( $response )->response->recordId;
         };
@@ -115,7 +115,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 'json'         => [ 'globalFields' => array_filter( $globals ) ],
             ] );
 
-            Response::check( $response, $this->query );
+            Response::check( $response, [ 'globalFields' => array_filter( $globals ) ] );
 
             return true;
         };
@@ -147,7 +147,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                     'json'         => [ 'fieldData' => array_filter( $fields ) ],
                 ] );
 
-                Response::check( $response, $this->query );
+                Response::check( $response, [ 'fieldData' => array_filter( $fields ) ] );
             }
 
             return true;
@@ -178,7 +178,15 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                     ],
                 ] );
 
-                Response::check( $response, $this->query );
+                Response::check( $response, [
+                    'multipart' => [
+                        [
+                            'name'     => 'upload',
+                            'contents' => '...',
+                            'filename' => basename( $filename ),
+                        ],
+                    ],
+                ] );
             }
 
             return true;
