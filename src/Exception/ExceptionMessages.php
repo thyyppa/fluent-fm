@@ -57,6 +57,13 @@ Please review the payload that was sent to FileMaker:
      */
     public static function fieldInvalid( $message, array $query ) : string
     {
+        $dump = self::queryDump( $query );
+        $note = '';
+
+        if( ! stristr( $dump, "'id'" ) ) {
+            $note = PHP_EOL . PHP_EOL . 'Note:: This payload does seem to be missing the `id` field.';
+        }
+
         return self::sep( self::baseMessage( $message ) )
                . self::textWrap(
                 'FileMaker did not specify which field, but it is often due to creating a record without the `id` field. 
@@ -64,8 +71,7 @@ Double check for fields that are required by the FileMaker table.
 Also check that you are not trying to add a duplicate value to a field defined as unique. This can often happen with unique `id` fields
 
 Please review the payload that was sent:'
-                . PHP_EOL
-                . self::queryDump( $query )
+                . PHP_EOL . $dump . $note
             ) . self::sep();
     }
 
