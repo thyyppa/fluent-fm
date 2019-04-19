@@ -5,6 +5,7 @@ namespace Hyyppa\FluentFM\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Hyyppa\FluentFM\Contract\FluentFM;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class FluentFMRepository.
@@ -13,6 +14,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 {
 
     use FluentQuery;
+
+    protected $auto_id = true;
 
 
     public function __construct( array $config, Client $client = null )
@@ -81,6 +84,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
      */
     public function create( string $layout, array $fields = [] )
     {
+        if( ! array_key_exists( 'id', $fields ) && $this->auto_id ) {
+            $fields[ 'id' ] = Uuid::uuid4();
+        }
+
         $this->callback = function () use ( $layout, $fields ) {
             $response = $this->client->post( Url::records( $layout ), [
                 'Content-Type' => 'application/json',

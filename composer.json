@@ -12,7 +12,8 @@
     "require":     {
         "php":                  "^7.1",
         "guzzlehttp/guzzle":    "6.3.*",
-        "ext-json":             "*"
+        "ext-json":             "*",
+        "ramsey/uuid": "^3.8"
     },
     "require-dev": {
         "phpunit/phpunit":      "7.4.0",
