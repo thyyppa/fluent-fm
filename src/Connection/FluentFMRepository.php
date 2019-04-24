@@ -85,7 +85,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     public function create( string $layout, array $fields = [] )
     {
         if( ! array_key_exists( 'id', $fields ) && $this->auto_id ) {
-            $fields[ 'id' ] = Uuid::uuid4();
+            $fields[ 'id' ] = Uuid::uuid4()->toString();
         }
 
         $this->callback = function () use ( $layout, $fields ) {
