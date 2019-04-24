@@ -23,10 +23,10 @@ class ExceptionMessages
      */
     public static function generic( $message, array $query ) : string
     {
-        return self::sep( self::baseMessage( $message ) )
-               . self::textWrap(
+        return self::format( self::sep( self::baseMessage( $message ) )
+                             . self::textWrap(
                 '<fg=green>This is the payload that was sent to FileMaker:</>' . PHP_EOL . self::queryDump( $query )
-            ) . self::sep();
+            ) . self::sep() );
     }
 
 
@@ -38,15 +38,15 @@ class ExceptionMessages
      */
     public static function fieldMissing( $message, array $query ) : string
     {
-        return self::sep( self::baseMessage( $message ) )
-               . self::textWrap( 'FileMaker does not specify which field, so if you are sure that the field exists:
+        return self::format( self::sep( self::baseMessage( $message ) )
+                             . self::textWrap( 'FileMaker does not specify which field, so if you are sure that the field exists:
 
 - You may be trying to use <fg=white>soft deletes</> without the <fg=white>`deleted_at`</> field.
 - You may be trying to <fg=white>sort by latest</> without the <fg=white>`created_at`</> field.
 - You may be trying to <fg=white>get last updated</> without the <fg=white>`updated_at`</> field.
 
 <fg=green>Please review the payload that was sent to FileMaker:</>
-    ' . self::queryDump( $query ) ) . self::sep();
+    ' . self::queryDump( $query ) ) . self::sep() );
     }
 
 
@@ -67,8 +67,8 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
 </>';
         }
 
-        return self::sep( self::baseMessage( $message ) )
-               . self::textWrap(
+        return self::format( self::sep( self::baseMessage( $message ) )
+                             . self::textWrap(
                 'FileMaker did not specify which field, so here are some tips:
 
 - This is often due to <fg=white>creating a record</> without the <fg=white>`id`</> field. 
@@ -78,7 +78,7 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
 
 <fg=green>Please review the payload that was sent:</>'
                 . PHP_EOL . $dump . $note
-            ) . self::sep();
+            ) . self::sep() );
     }
 
 
@@ -112,6 +112,23 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
     public static function textWrap( string $string, int $len = 120 ) : string
     {
         return str_replace( PHP_EOL, PHP_EOL . '    ', wordwrap( PHP_EOL . $string, $len - 4, PHP_EOL ) );
+    }
+
+
+    /**
+     * Strip CLI formatting if not in CLI
+     *
+     * @param string $message
+     *
+     * @return string
+     */
+    protected static function format( string $message ) : string
+    {
+        if( PHP_SAPI !== 'cli' ) {
+            return preg_replace( '/=+/', '=', strip_tags( $message ) );
+        }
+
+        return $message;
     }
 
 
