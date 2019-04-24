@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class TestBase extends TestCase
 {
+
     protected static $config = [
         'host' => '__hostname__',
         'file' => '__filemaker__',
@@ -21,18 +22,20 @@ class TestBase extends TestCase
     protected $history      = [];
     protected $real_history = [];
 
+
     /**
      * @return Response
      */
     protected static function token_request() : Response
     {
-        return new Response( 200, [
-            'X-FM-Data-Access-Token' => [ '__token__' ],
-        ] );
+        return new Response(200, [
+            'X-FM-Data-Access-Token' => ['__token__'],
+        ]);
     }
 
+
     /**
-     * @param array $responses
+     * @param  array  $responses
      *
      * @return Client
      */
@@ -41,13 +44,13 @@ class TestBase extends TestCase
         $this->history = [];
 
         $stack = HandlerStack::create(
-            new MockHandler( $responses )
+            new MockHandler($responses)
         );
 
-        $stack->push( Middleware::history( $this->history ) );
+        $stack->push(Middleware::history($this->history));
 
-        return new Client( [
+        return new Client([
             'handler' => $stack,
-        ] );
+        ]);
     }
 }

@@ -25,10 +25,11 @@ trait FluentQuery
      */
     protected $with_deleted = true;
 
+
     /**
      * Limit the number of results returned.
      *
-     * @param int $limit
+     * @param  int  $limit
      *
      * @return self|FluentFM
      */
@@ -39,10 +40,11 @@ trait FluentQuery
         return $this;
     }
 
+
     /**
      * Begin result set at the given record id.
      *
-     * @param int $offset
+     * @param  int  $offset
      *
      * @return self|FluentFMRepository
      */
@@ -53,53 +55,57 @@ trait FluentQuery
         return $this;
     }
 
+
     /**
      * Sort results ascending by field.
      *
-     * @param string $field
+     * @param  string  $field
      *
      * @return $this
      */
     public function sortAsc(string $field) : FluentFM
     {
-        $this->sort( $field );
+        $this->sort($field);
 
         return $this;
     }
 
+
     /**
      * Sort results by field.
      *
-     * @param string $field
-     * @param bool   $ascending
+     * @param  string  $field
+     * @param  bool  $ascending
      *
      * @return self|FluentFM
      */
     public function sort(string $field, bool $ascending = true) : FluentFM
     {
-        $this->query[ 'sort' ] = json_encode( [
+        $this->query[ 'sort' ] = json_encode([
             [
                 'fieldName' => $field,
                 'sortOrder' => $ascending ? 'ascend' : 'descend',
             ],
-        ] );
+        ]);
 
         return $this;
     }
 
+
     /**
      * Sort results descending by field.
      *
-     * @param string $field
+     * @param  string  $field
      *
      * @return $this
      */
     public function sortDesc(string $field) : FluentFM
     {
-        $this->sort( $field, false );
+        $this->sort($field, false);
 
         return $this;
     }
+
 
     /**
      * Include portal data in results.
@@ -113,6 +119,7 @@ trait FluentQuery
         return $this;
     }
 
+
     /**
      * Don't include portal data in results.
      *
@@ -125,6 +132,7 @@ trait FluentQuery
         return $this;
     }
 
+
     /**
      * @param $field
      *
@@ -132,18 +140,19 @@ trait FluentQuery
      */
     public function whereEmpty($field) : FluentFM
     {
-        return $this->where( $field, '' );
+        return $this->where($field, '');
     }
+
 
     /**
      * @param       $field
-     * @param array $params
+     * @param  array  $params
      *
      * @return self|FluentFM
      */
     public function where($field, ...$params) : FluentFM
     {
-        switch ( \count( $params ) ) {
+        switch (\count($params)) {
             case  1:
                 $value = '='.$params[ 0 ];
                 break;
@@ -159,25 +168,28 @@ trait FluentQuery
         return $this;
     }
 
+
     /**
-     * @param string $field
+     * @param  string  $field
      *
      * @return self|FluentFM
      */
     public function whereNotEmpty(string $field) : FluentFM
     {
-        return $this->has( $field );
+        return $this->has($field);
     }
 
+
     /**
-     * @param string $field
+     * @param  string  $field
      *
      * @return self|FluentFM
      */
     public function has(string $field) : FluentFM
     {
-        return $this->where( $field, '*' );
+        return $this->where($field, '*');
     }
+
 
     /**
      * @return array
@@ -186,8 +198,8 @@ trait FluentQuery
     {
         $output = [];
 
-        foreach ( $this->query as $param => $value ) {
-            if ( strpos( $param, 'script' ) !== 0 ) {
+        foreach ($this->query as $param => $value) {
+            if (strpos($param, 'script') !== 0) {
                 $param = '_'.$param;
             }
 
@@ -199,26 +211,28 @@ trait FluentQuery
         return $output;
     }
 
+
     /**
      * Run FileMaker script with param before requested action.
      *
-     * @param string $script
-     * @param null   $param
+     * @param  string  $script
+     * @param  null  $param
      *
      * @return self|FluentFM
      */
     public function prerequest(string $script, $param = null) : FluentFM
     {
-        return $this->script( $script, $param, 'prerequest' );
+        return $this->script($script, $param, 'prerequest');
     }
+
 
     /**
      * Run FileMaker script with param. If no type specified script will run
      * after requested action and sorting is complete.
      *
-     * @param string      $script
-     * @param null        $param
-     * @param string|null $type
+     * @param  string  $script
+     * @param  null  $param
+     * @param  string|null  $type
      *
      * @return self|FluentFM
      */
@@ -226,28 +240,30 @@ trait FluentQuery
     {
         $base = 'script';
 
-        if ( $type ) {
+        if ($type) {
             $base .= '.'.$type;
         }
 
-        $this->query[ $base ]            = $script;
+        $this->query[ $base ]          = $script;
         $this->query[ $base.'.param' ] = $param;
 
         return $this;
     }
 
+
     /**
      * Run FileMaker script with param after requested action but before sort.
      *
-     * @param string $script
-     * @param null   $param
+     * @param  string  $script
+     * @param  null  $param
      *
      * @return self|FluentFM
      */
     public function presort(string $script, $param = null) : FluentFM
     {
-        return $this->script( $script, $param, 'presort' );
+        return $this->script($script, $param, 'presort');
     }
+
 
     /**
      * Exclude records that have their deleted_at field set.
@@ -261,6 +277,7 @@ trait FluentQuery
         return $this;
     }
 
+
     /**
      * Include records that have their deleted_at field set.
      *
@@ -272,6 +289,7 @@ trait FluentQuery
 
         return $this;
     }
+
 
     /**
      * Clear query parameters.

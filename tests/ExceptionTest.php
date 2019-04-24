@@ -11,56 +11,56 @@ class ExceptionTest extends TestBase
 
     public function testAuthFailedAfterRetry() : void
     {
-        $this->expectException( FilemakerException::class );
-        $this->expectExceptionCode( 401 );
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionCode(401);
 
-        $fm = new FluentFMRepository( static::$config, $this->client( [
-            new Response( 401 ),
-            new Response( 401 ),
-        ] ) );
+        $fm = new FluentFMRepository(static::$config, $this->client([
+            new Response(401),
+            new Response(401),
+        ]));
 
-        $fm->records( 'table_a' )->get();
+        $fm->records('table_a')->get();
     }
 
 
     public function testLayoutMissing() : void
     {
-        $this->expectException( FilemakerException::class );
-        $this->expectExceptionCode( 105 );
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionCode(105);
 
-        $fm = new FluentFMRepository( static::$config, $this->client( [
+        $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
-            new Response( 500, [], file_get_contents( __DIR__ . '/responses/layout_missing.json' ) ),
-        ] ) );
+            new Response(500, [], file_get_contents(__DIR__.'/responses/layout_missing.json')),
+        ]));
 
-        $fm->records( 'table_z' )->get();
+        $fm->records('table_z')->get();
     }
 
 
     public function testFieldMissing() : void
     {
-        $this->expectException( FilemakerException::class );
-        $this->expectExceptionCode( 102 );
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionCode(102);
 
-        $fm = new FluentFMRepository( static::$config, $this->client( [
+        $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
-            new Response( 500, [], file_get_contents( __DIR__ . '/responses/field_missing.json' ) ),
-        ] ) );
+            new Response(500, [], file_get_contents(__DIR__.'/responses/field_missing.json')),
+        ]));
 
-        $fm->records( 'table_z' )->get();
+        $fm->records('table_z')->get();
     }
 
 
     public function testFieldInvalid() : void
     {
-        $this->expectException( FilemakerException::class );
-        $this->expectExceptionCode( 509 );
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionCode(509);
 
-        $fm = new FluentFMRepository( static::$config, $this->client( [
+        $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
-            new Response( 500, [], file_get_contents( __DIR__ . '/responses/field_invalid.json' ) ),
-        ] ) );
+            new Response(500, [], file_get_contents(__DIR__.'/responses/field_invalid.json')),
+        ]));
 
-        $fm->records( 'table_z' )->get();
+        $fm->records('table_z')->get();
     }
 }

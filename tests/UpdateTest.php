@@ -8,13 +8,14 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class UpdateTest extends TestBase
 {
+
     public function testUpdate() : void
     {
-        $fm = new FluentFMRepository( static::$config, $this->client( [
+        $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__.'/responses/update_response_find.json' ) ),
-            new Response( 200, [], file_get_contents( __DIR__.'/responses/update_response.json' ) ),
-        ] ) );
+            new Response(200, [], file_get_contents(__DIR__.'/responses/update_response_find.json')),
+            new Response(200, [], file_get_contents(__DIR__.'/responses/update_response.json')),
+        ]));
 
         $data = [
             'id'      => 1,
@@ -24,15 +25,15 @@ class UpdateTest extends TestBase
         ];
 
         $this->assertTrue(
-            $fm->update( 'table_a', $data )
-               ->where( 'id', '1' )
+            $fm->update('table_a', $data)
+               ->where('id', '1')
                ->exec()
         );
 
         /** @var Request $request */
         $request = $this->history[ 2 ][ 'request' ];
-        $this->assertEquals( 'PATCH', $request->getMethod() );
-        $this->assertEquals( 'layouts/table_a/records/1', $request->getUri()->getPath() );
-        $this->assertEquals( json_encode( [ 'fieldData' => $data ] ), $request->getBody()->getContents() );
+        $this->assertEquals('PATCH', $request->getMethod());
+        $this->assertEquals('layouts/table_a/records/1', $request->getUri()->getPath());
+        $this->assertEquals(json_encode(['fieldData' => $data]), $request->getBody()->getContents());
     }
 }

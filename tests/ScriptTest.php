@@ -8,18 +8,19 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class ScriptTest extends TestBase
 {
-    public function testScriptPost()
-    {
-        $fm = new FluentFMRepository( static::$config, $this->client( [
-            static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__.'/responses/records.json' ) ),
-        ] ) );
 
-        $fm->find( 'tabla_a' )
-           ->where( 'id', '1' )
-           ->script( 'scriptname', 'scriptparam' )
-           ->presort( 'presort_scriptname', 'presort_scriptparam' )
-           ->prerequest( 'prerequest_scriptname', 'prerequest_scriptparam' )
+    public function testScriptPost() : void
+    {
+        $fm = new FluentFMRepository(static::$config, $this->client([
+            static::token_request(),
+            new Response(200, [], file_get_contents(__DIR__.'/responses/records.json')),
+        ]));
+
+        $fm->find('tabla_a')
+           ->where('id', '1')
+           ->script('scriptname', 'scriptparam')
+           ->presort('presort_scriptname', 'presort_scriptparam')
+           ->prerequest('prerequest_scriptname', 'prerequest_scriptparam')
            ->get();
 
         /** @var Request $request */
@@ -30,17 +31,18 @@ class ScriptTest extends TestBase
         );
     }
 
-    public function testScriptQuery()
-    {
-        $fm = new FluentFMRepository( static::$config, $this->client( [
-            static::token_request(),
-            new Response( 200, [], file_get_contents( __DIR__.'/responses/records.json' ) ),
-        ] ) );
 
-        $fm->records( 'table_a' )
-           ->script( 'scriptname', 'scriptparam' )
-           ->presort( 'presort_scriptname', 'presort_scriptparam' )
-           ->prerequest( 'prerequest_scriptname', 'prerequest_scriptparam' )
+    public function testScriptQuery() : void
+    {
+        $fm = new FluentFMRepository(static::$config, $this->client([
+            static::token_request(),
+            new Response(200, [], file_get_contents(__DIR__.'/responses/records.json')),
+        ]));
+
+        $fm->records('table_a')
+           ->script('scriptname', 'scriptparam')
+           ->presort('presort_scriptname', 'presort_scriptparam')
+           ->prerequest('prerequest_scriptname', 'prerequest_scriptparam')
            ->get();
 
         /** @var Request $request */

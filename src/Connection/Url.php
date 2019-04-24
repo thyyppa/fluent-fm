@@ -7,9 +7,10 @@ namespace Hyyppa\FluentFM\Connection;
  */
 class Url
 {
+
     /**
-     * @param string   $layout
-     * @param int|null $id
+     * @param  string  $layout
+     * @param  int|null  $id
      *
      * @return string
      */
@@ -20,8 +21,9 @@ class Url
         return 'layouts/'.$layout.'/records'.$record;
     }
 
+
     /**
-     * @param string $layout
+     * @param  string  $layout
      *
      * @return string
      */
@@ -29,6 +31,7 @@ class Url
     {
         return 'layouts/'.$layout.'/_find';
     }
+
 
     /**
      * @return string
@@ -38,16 +41,17 @@ class Url
         return 'globals';
     }
 
+
     /**
-     * @param string $layout
-     * @param string $field
-     * @param int    $recordId
+     * @param  string  $layout
+     * @param  string  $field
+     * @param  int  $recordId
      *
      * @return string
      */
     public static function container(string $layout, string $field, int $recordId) : string
     {
-        return sprintf( 'layouts/%s/records/%s/containers/%s/1',
+        return sprintf('layouts/%s/records/%s/containers/%s/1',
             $layout,
             $recordId,
             $field

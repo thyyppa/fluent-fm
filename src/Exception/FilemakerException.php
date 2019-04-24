@@ -7,4 +7,5 @@ namespace Hyyppa\FluentFM\Exception;
  */
 class FilemakerException extends \Exception
 {
+
 }
