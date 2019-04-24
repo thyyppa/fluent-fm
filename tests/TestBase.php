@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class TestBase extends TestCase
 {
-
     protected static $config = [
         'host' => '__hostname__',
         'file' => '__filemaker__',
@@ -19,9 +18,8 @@ class TestBase extends TestCase
         'pass' => '__password__',
     ];
 
-    protected $history      = [];
+    protected $history = [];
     protected $real_history = [];
-
 
     /**
      * @return Response
@@ -32,7 +30,6 @@ class TestBase extends TestCase
             'X-FM-Data-Access-Token' => ['__token__'],
         ]);
     }
-
 
     /**
      * @param  array  $responses

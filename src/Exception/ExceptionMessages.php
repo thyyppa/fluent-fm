@@ -1,9 +1,9 @@
-<?php namespace Hyyppa\FluentFM\Exception;
+<?php
+
+namespace Hyyppa\FluentFM\Exception;
 
 class ExceptionMessages
 {
-
-
     /**
      * @param  string  $message
      *
@@ -13,7 +13,6 @@ class ExceptionMessages
     {
         return sprintf('FileMaker returned error %d - %s', $message->code, $message->message);
     }
-
 
     /**
      * @param       $message
@@ -28,7 +27,6 @@ class ExceptionMessages
                 '<fg=green>This is the payload that was sent to FileMaker:</>'.PHP_EOL.self::queryDump($query)
             ).self::sep());
     }
-
 
     /**
      * @param       $message
@@ -49,7 +47,6 @@ class ExceptionMessages
     '.self::queryDump($query)).self::sep());
     }
 
-
     /**
      * @param       $message
      * @param  array  $query
@@ -61,7 +58,7 @@ class ExceptionMessages
         $dump = self::queryDump($query);
         $note = '';
 
-        if ( ! stristr($dump, "'ids'")) {
+        if (! stristr($dump, "'ids'")) {
             $note = PHP_EOL.PHP_EOL.'<fg=red;options=bold>
 Note:: This payload does seem to be <fg=white;options=bold>missing the `id` field</>. This is likely the problem.
 </>';
@@ -81,9 +78,8 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
             ).self::sep());
     }
 
-
     /**
-     * -- Generates a line like this, with a width of $len --------
+     * -- Generates a line like this, with a width of $len --------.
      *
      * @param  string  $title
      * @param  int  $len
@@ -93,16 +89,15 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
     public static function sep(string $title = '', int $len = 120) : string
     {
         if ($title) {
-            $len   -= strlen($title) + 4;
+            $len -= strlen($title) + 4;
             $title = '== <fg=white;options=bold>'.$title.'</> ';
         }
 
         return str_repeat(PHP_EOL, 2).'<fg=red;options=bold>'.$title.str_repeat('=', $len).'</>'.PHP_EOL;
     }
 
-
     /**
-     * Wraps text to max width of $len, indents all lines 4 spaces
+     * Wraps text to max width of $len, indents all lines 4 spaces.
      *
      * @param  string  $string
      * @param  int  $len
@@ -114,9 +109,8 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
         return str_replace(PHP_EOL, PHP_EOL.'    ', wordwrap(PHP_EOL.$string, $len - 4, PHP_EOL));
     }
 
-
     /**
-     * Strip CLI formatting if not in CLI
+     * Strip CLI formatting if not in CLI.
      *
      * @param  string  $message
      *
@@ -131,7 +125,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
         return $message;
     }
 
-
     /**
      * $creates = [
      *   'a' => 'square box',
@@ -139,7 +132,7 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      *   'of' => 'an array',
      *   'that' => 'looks',
      *   'like' => 'this',
-     * ];
+     * ];.
      *
      * @param  array  $query
      *
@@ -149,8 +142,8 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
     {
         $export = var_export($query, true);
         $export = preg_replace('/^([ ]*)(.*)/m', '  $1$2', $export);
-        $array  = preg_split("/\r\n|\n|\r/", $export);
-        $array  = preg_replace(
+        $array = preg_split("/\r\n|\n|\r/", $export);
+        $array = preg_replace(
             ["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/", '/NULL/'],
             [null, ']$1', ' => [', 'null'],
             $array
@@ -158,5 +151,4 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
 
         return PHP_EOL.'  <fg=white>$payload = '.implode(PHP_EOL, array_filter(['['] + $array)).';</>';
     }
-
 }

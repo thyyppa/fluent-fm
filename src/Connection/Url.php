@@ -7,7 +7,6 @@ namespace Hyyppa\FluentFM\Connection;
  */
 class Url
 {
-
     /**
      * @param  string  $layout
      * @param  int|null  $id
@@ -21,7 +20,6 @@ class Url
         return 'layouts/'.$layout.'/records'.$record;
     }
 
-
     /**
      * @param  string  $layout
      *
@@ -32,7 +30,6 @@ class Url
         return 'layouts/'.$layout.'/_find';
     }
 
-
     /**
      * @return string
      */
@@ -40,7 +37,6 @@ class Url
     {
         return 'globals';
     }
-
 
     /**
      * @param  string  $layout

@@ -9,7 +9,6 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class FileTest extends TestBase
 {
-
     public function testFileUpload() : void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
@@ -20,7 +19,7 @@ class FileTest extends TestBase
         $fm->upload('table_c', 'file', __DIR__.'/resources/php.png', 1)->exec();
 
         /** @var Request $request */
-        $request      = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $request_body = (string) $request->getBody();
 
         /* @var Request $request */
@@ -35,7 +34,6 @@ Content-Type: image/png', 2, 16)),
         );
     }
 
-
     public function testFileDownload() : void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
@@ -49,13 +47,13 @@ Content-Type: image/png', 2, 16)),
                ->limit(1)
                ->exec();
         } catch (ConnectException $e) {
-            if ($e->getHandlerContext()[ 'errno' ] !== 6) {
+            if ($e->getHandlerContext()['errno'] !== 6) {
                 throw $e;
             }
         }
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_c/_find', $request->getUri()->getPath());
         $this->assertEquals(

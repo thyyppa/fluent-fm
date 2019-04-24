@@ -11,7 +11,6 @@ use Hyyppa\FluentFM\Exception\FilemakerException;
  */
 abstract class BaseConnection
 {
-
     /**
      * @var Client
      */
@@ -37,7 +36,6 @@ abstract class BaseConnection
      */
     protected $field_cache = [];
 
-
     /**
      * BaseConnection constructor.
      *
@@ -62,7 +60,6 @@ abstract class BaseConnection
         $this->getToken();
     }
 
-
     /**
      * Get specified value from config, or if not specified
      * the entire config array.
@@ -73,20 +70,18 @@ abstract class BaseConnection
      */
     protected function config(string $key = null)
     {
-        return $key ? $this->config[ $key ] : $this->config;
+        return $key ? $this->config[$key] : $this->config;
     }
-
 
     /**
      * Generate authorization header.
      *
      * @return array
      * @throws FilemakerException
-     *
      */
     protected function authHeader() : array
     {
-        if ( ! $this->token) {
+        if (! $this->token) {
             $this->getToken();
         }
 
@@ -95,13 +90,11 @@ abstract class BaseConnection
         ];
     }
 
-
     /**
      * Request api access token from server.
      *
      * @return string
      * @throws FilemakerException
-     *
      */
     protected function getToken() : string
     {
@@ -111,7 +104,7 @@ abstract class BaseConnection
                     'Content-Type'  => 'application/json',
                     'Authorization' => 'Basic '.base64_encode($this->config('user').':'.$this->config('pass')),
                 ],
-            ])->getHeader('X-FM-Data-Access-Token')[ 0 ];
+            ])->getHeader('X-FM-Data-Access-Token')[0];
         } catch (ClientException $e) {
             throw new FilemakerException('Filemaker access unauthorized - please check your credentials', 401);
         }

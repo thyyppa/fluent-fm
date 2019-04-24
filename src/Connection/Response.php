@@ -11,7 +11,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Response
 {
-
     /**
      * Get response body contents.
      *
@@ -26,7 +25,6 @@ class Response
         return json_decode($response->getBody()->getContents());
     }
 
-
     /**
      * Get response returned records.
      *
@@ -40,12 +38,11 @@ class Response
         $records = [];
 
         foreach (static::body($response)->response->data as $record) {
-            $records[ $record->recordId ] = $with_portals ? (array) $record : (array) $record->fieldData;
+            $records[$record->recordId] = $with_portals ? (array) $record : (array) $record->fieldData;
         }
 
         return $records;
     }
-
 
     /**
      * Get response returned message.
@@ -56,7 +53,7 @@ class Response
      */
     public static function message(ResponseInterface $response)
     {
-        $message = static::body($response)->messages[ 0 ];
+        $message = static::body($response)->messages[0];
 
         if ($message->code === '0') {
             return;
@@ -64,7 +61,6 @@ class Response
 
         return $message;
     }
-
 
     /**
      * @param  ResponseInterface  $response
@@ -76,11 +72,11 @@ class Response
     {
         $body = static::body($response);
 
-        if ( ! isset($body->messages)) {
+        if (! isset($body->messages)) {
             return;
         }
 
-        $message = $body->messages[ 0 ];
+        $message = $body->messages[0];
 
         switch ($message->code) {
             case 0:

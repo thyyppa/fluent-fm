@@ -8,7 +8,6 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class CreateTest extends TestBase
 {
-
     public function testCreateRecords() : void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
@@ -26,7 +25,7 @@ class CreateTest extends TestBase
         $this->assertEquals(1, $fm->create('table_a', $data));
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_a/records', $request->getUri()->getPath());
         $this->assertEquals(

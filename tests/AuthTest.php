@@ -8,7 +8,6 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class AuthTest extends TestBase
 {
-
     public function testToken() : void
     {
         new FluentFMRepository(static::$config, $this->client([
@@ -16,7 +15,7 @@ class AuthTest extends TestBase
         ]));
 
         /** @var Request $request */
-        $request = $this->history[ 0 ][ 'request' ];
+        $request = $this->history[0]['request'];
 
         $this->assertEquals('POST', $request->getMethod());
         $this->assertArraySubset([
@@ -24,7 +23,6 @@ class AuthTest extends TestBase
             'Content-Type'  => ['application/json'],
         ], $request->getHeaders());
     }
-
 
     public function testTokenAuthRetry() : void
     {
@@ -52,7 +50,6 @@ class AuthTest extends TestBase
         );
     }
 
-
     public function testLogout() : void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
@@ -63,7 +60,7 @@ class AuthTest extends TestBase
         $fm->logout();
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals('DELETE', $request->getMethod());
     }
 }

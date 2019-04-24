@@ -8,7 +8,6 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class ScriptTest extends TestBase
 {
-
     public function testScriptPost() : void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
@@ -24,13 +23,12 @@ class ScriptTest extends TestBase
            ->get();
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals(
             '{"query":[{"id":"=1"}],"script":"scriptname","script.param":"scriptparam","script.prerequest":"prerequest_scriptname","script.prerequest.param":"prerequest_scriptparam","script.presort":"presort_scriptname","script.presort.param":"presort_scriptparam"}',
             $request->getBody()->getContents()
         );
     }
-
 
     public function testScriptQuery() : void
     {
@@ -46,7 +44,7 @@ class ScriptTest extends TestBase
            ->get();
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals(
             'script=scriptname&script.param=scriptparam&script.prerequest=prerequest_scriptname&script.prerequest.param=prerequest_scriptparam&script.presort=presort_scriptname&script.presort.param=presort_scriptparam',
             $request->getUri()->getQuery()

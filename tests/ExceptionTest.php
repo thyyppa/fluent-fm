@@ -8,7 +8,6 @@ use Hyyppa\FluentFM\Exception\FilemakerException;
 
 class ExceptionTest extends TestBase
 {
-
     public function testAuthFailedAfterRetry() : void
     {
         $this->expectException(FilemakerException::class);
@@ -21,7 +20,6 @@ class ExceptionTest extends TestBase
 
         $fm->records('table_a')->get();
     }
-
 
     public function testLayoutMissing() : void
     {
@@ -36,7 +34,6 @@ class ExceptionTest extends TestBase
         $fm->records('table_z')->get();
     }
 
-
     public function testFieldMissing() : void
     {
         $this->expectException(FilemakerException::class);
@@ -49,7 +46,6 @@ class ExceptionTest extends TestBase
 
         $fm->records('table_z')->get();
     }
-
 
     public function testFieldInvalid() : void
     {

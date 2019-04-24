@@ -12,11 +12,9 @@ use Ramsey\Uuid\Uuid;
  */
 class FluentFMRepository extends BaseConnection implements FluentFM
 {
-
     use FluentQuery;
 
     protected $auto_id = true;
-
 
     public function __construct(array $config, Client $client = null)
     {
@@ -24,7 +22,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
         $this->clearQuery();
     }
-
 
     /**
      * {@inheritdoc}
@@ -35,7 +32,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
         return $this;
     }
-
 
     /**
      * {@inheritdoc}
@@ -57,7 +53,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -78,14 +73,13 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
-
     /**
      * {@inheritdoc}
      */
     public function create(string $layout, array $fields = [])
     {
-        if ( ! array_key_exists('id', $fields) && $this->auto_id) {
-            $fields[ 'id' ] = Uuid::uuid4()->toString();
+        if (! array_key_exists('id', $fields) && $this->auto_id) {
+            $fields['id'] = Uuid::uuid4()->toString();
         }
 
         $this->callback = function () use ($layout, $fields) {
@@ -103,7 +97,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this->exec();
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -113,7 +106,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             $globals = [];
 
             foreach ($fields as $key => $value) {
-                $globals[ $layout.'::'.$key ] = $value;
+                $globals[$layout.'::'.$key] = $value;
             }
 
             $response = $this->client->patch(Url::globals(), [
@@ -130,7 +123,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this->exec();
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -139,8 +131,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->callback = function () use ($layout, $fields, $recordId) {
             $recordIds = [$recordId];
 
-            if ( ! $recordId) {
-                if ( ! $records = $this->find($layout)->get()) {
+            if (! $recordId) {
+                if (! $records = $this->find($layout)->get()) {
                     return true;
                 }
 
@@ -162,7 +154,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
         return $this;
     }
-
 
     /**
      * {@inheritdoc}
@@ -202,7 +193,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -215,7 +205,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 $records = $this->find($layout)->get();
             }
 
-            if ( ! is_dir($output_dir) && ! mkdir($output_dir, 0775, true) && ! is_dir($output_dir)) {
+            if (! is_dir($output_dir) && ! mkdir($output_dir, 0775, true) && ! is_dir($output_dir)) {
                 throw new \RuntimeException(sprintf('Directory "%s" was not created', $output_dir));
             }
 
@@ -227,12 +217,12 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
             foreach ($records as $record) {
                 $ext = pathinfo(
-                    parse_url($record[ $field ])[ 'path' ],
+                    parse_url($record[$field])['path'],
                     PATHINFO_EXTENSION
                 );
 
-                $filename = sprintf('%s/%s.%s', $output_dir, $record[ 'id' ], $ext);
-                $response = $downloader->get($record[ $field ]);
+                $filename = sprintf('%s/%s.%s', $output_dir, $record['id'], $ext);
+                $response = $downloader->get($record[$field]);
 
                 Response::check($response, $this->query);
 
@@ -247,7 +237,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
         return $this;
     }
-
 
     /**
      * {@inheritdoc}
@@ -272,7 +261,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -284,7 +272,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             $recordId
         )->whereEmpty('deleted_at');
     }
-
 
     /**
      * {@inheritdoc}
@@ -298,31 +285,29 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         )->withDeleted();
     }
 
-
     /**
      * {@inheritdoc}
      */
     public function fields(string $layout) : array
     {
-        if (isset($this->field_cache[ $layout ])) {
-            return $this->field_cache[ $layout ];
+        if (isset($this->field_cache[$layout])) {
+            return $this->field_cache[$layout];
         }
 
-        $id          = $this->create($layout);
+        $id = $this->create($layout);
         $temp_record = $this->record($layout, $id)->first();
-        $fields      = array_keys($temp_record);
+        $fields = array_keys($temp_record);
         $this->delete($layout, $id)->exec();
 
-        return $this->field_cache[ $layout ] = $fields;
+        return $this->field_cache[$layout] = $fields;
     }
-
 
     /**
      * {@inheritdoc}
      */
     public function logout() : void
     {
-        if ( ! $this->token) {
+        if (! $this->token) {
             return;
         }
 
@@ -333,7 +318,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         ]);
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -342,7 +326,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this->get();
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -350,7 +333,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $results = null;
 
-        if ( ! \is_array($this->query[ 'query' ][ 0 ])) {
+        if (! \is_array($this->query['query'][0])) {
             $this->has('id');
         }
 
@@ -376,7 +359,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $results;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -384,7 +366,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         return $this->records($layout)->sortDesc($field)->limit(1)->first();
     }
-
 
     /**
      * {@inheritdoc}
@@ -394,7 +375,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this->records($layout)->sortDesc($field)->limit(1)->first();
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -403,21 +383,19 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this->records($layout)->sortAsc($field)->limit(1)->first();
     }
 
-
     /**
      * {@inheritdoc}
      */
     public function first()
     {
-        return \array_slice($this->get(), 0, 1)[ 0 ];
+        return \array_slice($this->get(), 0, 1)[0];
     }
-
 
     /**
      * {@inheritdoc}
      */
     public function last()
     {
-        return \array_slice($this->get(), -1, 1)[ 0 ];
+        return \array_slice($this->get(), -1, 1)[0];
     }
 }
