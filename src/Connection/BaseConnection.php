@@ -106,12 +106,18 @@ abstract class BaseConnection
     protected function getToken() : string
     {
         try {
-            return $this->token = $this->client->post('sessions', [
+            $header = $this->client->post('sessions', [
                 'headers' => [
                     'Content-Type'  => 'application/json',
                     'Authorization' => 'Basic '.base64_encode($this->config('user').':'.$this->config('pass')),
                 ],
-            ])->getHeader('X-FM-Data-Access-Token')[ 0 ];
+            ])->getHeader('X-FM-Data-Access-Token');
+
+            if ( ! count($header)) {
+                throw new FilemakerException('Filemaker did not return an auth token. Is the server online?', 404);
+            }
+
+            return $this->token = $header[ 0 ];
         } catch (ClientException $e) {
             throw new FilemakerException('Filemaker access unauthorized - please check your credentials', 401);
         }

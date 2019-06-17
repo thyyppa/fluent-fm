@@ -63,4 +63,15 @@ class ExceptionTest extends TestBase
 
         $fm->records('table_z')->get();
     }
+
+
+    public function testFilemakerDidNotReturnToken() : void
+    {
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionCode(404);
+
+        new FluentFMRepository(static::$config, $this->client([
+            new Response(200),
+        ]));
+    }
 }
