@@ -2,6 +2,7 @@
 
 namespace Hyyppa\FluentFM\Connection;
 
+use ErrorException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Hyyppa\FluentFM\Exception\FilemakerException;
@@ -119,7 +120,17 @@ abstract class BaseConnection
 
             return $this->token = $header[ 0 ];
         } catch (ClientException $e) {
-            throw new FilemakerException('Filemaker access unauthorized - please check your credentials', 401);
+            throw new FilemakerException('Filemaker access unauthorized - please check your credentials', 401, $e);
+        } catch (ErrorException $e) {
+            if (stristr($e->getMessage(), 'undefined offset')) {
+                throw new FilemakerException(
+                    'Filemaker didn\'t return X-FM-Data-Access-Token header - unable to authenticate',
+                    401,
+                    $e
+                );
+            }
+
+            throw $e;
         }
     }
 }
