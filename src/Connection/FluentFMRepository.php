@@ -419,4 +419,16 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         return \array_slice($this->get(), -1, 1)[ 0 ];
     }
+
+
+    /**
+     * Request new token from filemaker.
+     * Useful for tasks delayed in queue.
+     *
+     * Try this if you are getting 952 errors from filemaker.
+     */
+    public function refreshToken() : void
+    {
+        $this->getToken();
+    }
 }

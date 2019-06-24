@@ -158,6 +158,18 @@ interface FluentFM
     public function fields(string $layout) : array;
 
 
+    /**
+     * Request new token from filemaker.
+     * Useful for tasks delayed in queue.
+     *
+     * Try this if you are getting 952 errors from filemaker.
+     */
+    public function refreshToken() : void;
+
+
+    /**
+     *
+     */
     public function logout() : void;
 
 
