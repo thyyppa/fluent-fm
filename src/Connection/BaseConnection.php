@@ -58,6 +58,7 @@ abstract class BaseConnection
                 ),
                 'verify'      => false,
                 'http_errors' => false,
+                'timeout'     => $this->config('timeout'),
             ]);
 
         $this->getToken();
