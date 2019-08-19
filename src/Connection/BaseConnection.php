@@ -50,16 +50,18 @@ abstract class BaseConnection
     public function __construct(array $config, Client $client = null)
     {
         $this->config = $config;
-        $this->client = $client ?? new Client([
-                'base_uri'    => sprintf(
-                    'https://%s/fmi/data/v1/databases/%s/',
-                    $this->config('host'),
-                    $this->config('file')
-                ),
-                'verify'      => false,
-                'http_errors' => false,
-                'timeout'     => $this->config('timeout'),
-            ]);
+
+        $options = [
+            'base_uri' => sprintf(
+                'https://%s/fmi/data/v1/databases/%s/',
+                $this->config('host'),
+                $this->config('file')
+            ),
+        ];
+
+        $this->client = $client ?? new Client(
+                array_merge($options, $this->config[ 'client' ])
+            );
 
         $this->getToken();
     }
