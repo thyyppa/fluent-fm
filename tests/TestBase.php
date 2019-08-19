@@ -42,6 +42,7 @@ class TestBase extends TestCase
     protected function client(array $responses = []) : Client
     {
         $this->history = [];
+        $responses[]   = new Response(200, [], file_get_contents(__DIR__.'/responses/OK.json'));
 
         $stack = HandlerStack::create(
             new MockHandler($responses)

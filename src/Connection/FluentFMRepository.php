@@ -435,4 +435,17 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->logout();
         $this->getToken();
     }
+
+
+    /**
+     *
+     */
+    public function __destruct()
+    {
+        try {
+            $this->logout();
+            unset($this->client);
+        } catch (\Exception $e) {
+        }
+    }
 }
