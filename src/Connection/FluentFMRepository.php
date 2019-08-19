@@ -325,11 +325,14 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             return;
         }
 
-        $this->client->delete('sessions/'.$this->token, [
-            'headers' => [
-                'Content-Type' => 'application/json',
-            ],
-        ]);
+        try {
+            $this->client->delete('sessions/'.$this->token, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
+        } catch (Exception $e) {
+        }
     }
 
 
@@ -429,6 +432,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
      */
     public function refreshToken() : void
     {
+        $this->logout();
         $this->getToken();
     }
 }
