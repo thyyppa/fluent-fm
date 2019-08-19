@@ -58,11 +58,12 @@ class AuthTest extends TestBase
         $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
             static::token_request(),
+            static::token_request(),
         ]));
 
         $fm->refreshToken();
 
-        $this->assertCount(2, $this->history);
+        $this->assertCount(3, $this->history);
     }
 
 
