@@ -18,7 +18,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function record($layout, $id) : self;
+    public function record($layout, $id) : FluentFM;
 
 
     /**
@@ -29,7 +29,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function records($layout, $id = null) : self;
+    public function records($layout, $id = null) : FluentFM;
 
 
     /**
@@ -257,7 +257,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function limit(int $limit) : self;
+    public function limit(int $limit) : FluentFM;
 
 
     /**
@@ -267,7 +267,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function offset(int $offset) : self;
+    public function offset(int $offset) : FluentFM;
 
 
     /**
@@ -278,7 +278,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function sort(string $field, bool $ascending = true) : self;
+    public function sort(string $field, bool $ascending = true) : FluentFM;
 
 
     /**
@@ -288,7 +288,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function sortAsc(string $field) : self;
+    public function sortAsc(string $field) : FluentFM;
 
 
     /**
@@ -298,7 +298,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function sortDesc(string $field) : self;
+    public function sortDesc(string $field) : FluentFM;
 
 
     /**
@@ -306,7 +306,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function withPortals() : self;
+    public function withPortals() : FluentFM;
 
 
     /**
@@ -314,7 +314,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function withoutPortals() : self;
+    public function withoutPortals() : FluentFM;
 
 
     /**
@@ -323,7 +323,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function where($field, ...$params) : self;
+    public function where($field, ...$params) : FluentFM;
 
 
     /**
@@ -331,7 +331,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function whereEmpty($field) : self;
+    public function whereEmpty($field) : FluentFM;
 
 
     /**
@@ -339,7 +339,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function has(string $field) : self;
+    public function has(string $field) : FluentFM;
 
 
     /**
@@ -347,7 +347,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function whereNotEmpty(string $field) : self;
+    public function whereNotEmpty(string $field) : FluentFM;
 
 
     /**
@@ -355,7 +355,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function withDeleted() : self;
+    public function withDeleted() : FluentFM;
 
 
     /**
@@ -363,7 +363,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function withoutDeleted() : self;
+    public function withoutDeleted() : FluentFM;
 
 
     /**
@@ -376,7 +376,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function script(string $script, $param = null, string $type = null) : self;
+    public function script(string $script, $param = null, string $type = null) : FluentFM;
 
 
     /**
@@ -387,7 +387,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function prerequest(string $script, $param = null) : self;
+    public function prerequest(string $script, $param = null) : FluentFM;
 
 
     /**
@@ -398,5 +398,5 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function presort(string $script, $param = null) : self;
+    public function presort(string $script, $param = null) : FluentFM;
 }
