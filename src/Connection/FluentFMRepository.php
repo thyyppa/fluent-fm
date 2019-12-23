@@ -259,7 +259,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
             foreach ($recordIds as $id) {
                 $response = $this->client->delete(Url::records($layout, $id), [
-                    'headers'      => $this->authHeader(),
+                    'headers' => $this->authHeader(),
                 ]);
 
                 Response::check($response, $this->query);
