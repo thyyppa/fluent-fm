@@ -458,4 +458,26 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->auto_id = $auto_id;
     }
 
+
+    /**
+     * @return self|FluentFMRepository
+     */
+    public function enableAutoId() : self
+    {
+        $this->auto_id = true;
+
+        return $this;
+    }
+
+
+    /**
+     * @return self|FluentFMRepository
+     */
+    public function disableAutoId() : self
+    {
+        $this->auto_id = false;
+
+        return $this;
+    }
+
 }
