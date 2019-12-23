@@ -21,17 +21,17 @@ class FileTest extends TestBase
 
         /** @var Request $request */
         $request      = $this->history[ 1 ][ 'request' ];
-        $request_body = (string) $request->getBody();
 
         /* @var Request $request */
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_c/records/1/containers/file/1', $request->getUri()->getPath());
+        $this->assertEquals(
+            3531,
+            $request->getHeader('Content-Length')[ 0 ]
+        );
         $this->assertContains(
-            pack('H*', base_convert(
-                'Content-Disposition: form-data; name="upload"; filename="php.png"
-Content-Length: 3323
-Content-Type: image/png', 2, 16)),
-            $request_body
+            'multipart/form-data;',
+            $request->getHeader('Content-Type')[ 0 ]
         );
     }
 
