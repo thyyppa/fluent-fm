@@ -238,6 +238,10 @@ $fm->find('customers')
 
 // set global fields on table
 ->global( [table], [ key => value ] )
+
+// enable or disable automatic setting of id field (default enabled)
+->enableAutoId()
+->disableAutoId()
 ```
 
 
