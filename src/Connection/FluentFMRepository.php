@@ -448,4 +448,14 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         } catch (\Exception $e) {
         }
     }
+
+
+    /**
+     * @param  bool  $auto_id
+     */
+    public function setAutoId(bool $auto_id) : void
+    {
+        $this->auto_id = $auto_id;
+    }
+
 }
