@@ -61,7 +61,7 @@ trait FluentQuery
      *
      * @param  string  $field
      *
-     * @return $this
+     * @return self|FluentFM
      */
     public function sortAsc(string $field) : FluentFM
     {
@@ -97,7 +97,7 @@ trait FluentQuery
      *
      * @param  string  $field
      *
-     * @return $this
+     * @return self|FluentFM
      */
     public function sortDesc(string $field) : FluentFM
     {
@@ -268,7 +268,7 @@ trait FluentQuery
     /**
      * Exclude records that have their deleted_at field set.
      *
-     * @return FluentFM
+     * @return self|FluentFM
      */
     public function withoutDeleted() : FluentFM
     {
@@ -281,7 +281,7 @@ trait FluentQuery
     /**
      * Include records that have their deleted_at field set.
      *
-     * @return FluentFM
+     * @return self|FluentFM
      */
     public function withDeleted() : FluentFM
     {
