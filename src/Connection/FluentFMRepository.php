@@ -371,9 +371,9 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             } else {
                 throw $e;
             }
+        } finally {
+            $this->clearQuery();
         }
-
-        $this->clearQuery();
 
         return $results;
     }
