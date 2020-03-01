@@ -105,7 +105,7 @@ abstract class BaseConnection
      *
      * @return string
      * @throws FilemakerException
-     *
+     * @throws ErrorException
      */
     protected function getToken() : string
     {
