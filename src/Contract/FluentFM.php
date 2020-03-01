@@ -399,4 +399,12 @@ interface FluentFM
      * @return FluentFM
      */
     public function presort(string $script, $param = null) : self;
+
+
+    /**
+     * Clear query parameters.
+     *
+     * @return self|FluentFM
+     */
+    public function clearQuery() : self;
 }

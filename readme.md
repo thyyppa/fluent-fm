@@ -242,6 +242,9 @@ $fm->find('customers')
 // enable or disable automatic setting of id field (default enabled)
 ->enableAutoId()
 ->disableAutoId()
+
+// clear query parameters
+->clearQuery()
 ```
 
 

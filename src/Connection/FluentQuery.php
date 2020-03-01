@@ -296,7 +296,7 @@ trait FluentQuery
      *
      * @return self|FluentFM
      */
-    protected function clearQuery() : FluentFM
+    public function clearQuery() : FluentFM
     {
         $this->query = [
             'limit'                   => null,
