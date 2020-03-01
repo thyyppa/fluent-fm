@@ -407,4 +407,12 @@ interface FluentFM
      * @return self|FluentFM
      */
     public function clearQuery() : self;
+
+
+    /**
+     * Reset query builder.
+     *
+     * @return self|FluentFM
+     */
+    public function reset() : self;
 }

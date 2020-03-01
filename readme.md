@@ -245,6 +245,9 @@ $fm->find('customers')
 
 // clear query parameters
 ->clearQuery()
+
+// clear query parameters and reset to default options
+->reset()
 ```
 
 
