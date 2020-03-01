@@ -313,20 +313,4 @@ trait FluentQuery
 
         return $this;
     }
-
-
-    /**
-     * Reset query builder.
-     *
-     * @return self|FluentFM
-     */
-    public function reset() : FluentFM
-    {
-        $this->clearQuery();
-
-        $this->with_portals = false;
-        $this->with_deleted = true;
-
-        return $this;
-    }
 }

@@ -478,4 +478,20 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
+
+    /**
+     * Reset query builder.
+     *
+     * @return self|FluentFMRepository
+     */
+    public function reset() : self
+    {
+        $this->clearQuery();
+
+        $this->with_portals = false;
+        $this->with_deleted = true;
+
+        return $this;
+    }
+
 }
