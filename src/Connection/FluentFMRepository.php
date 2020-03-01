@@ -436,19 +436,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
 
     /**
-     *
-     */
-    public function __destruct()
-    {
-        try {
-            $this->logout();
-            unset($this->client);
-        } catch (\Exception $e) {
-        }
-    }
-
-
-    /**
      * @param  bool  $auto_id
      */
     public function setAutoId(bool $auto_id) : void
@@ -492,6 +479,19 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->with_deleted = true;
 
         return $this;
+    }
+
+
+    /**
+     *
+     */
+    public function __destruct()
+    {
+        try {
+            $this->logout();
+            unset($this->client);
+        } catch (\Exception $e) {
+        }
     }
 
 }
