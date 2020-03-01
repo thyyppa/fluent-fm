@@ -233,13 +233,11 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
                 $filename = sprintf('%s/%s.%s', $output_dir, $record[ 'id' ], $ext);
                 $response = $downloader->get($record[ $field ]);
+                $file_contents = $response->getBody()->getContents();
 
                 Response::check($response, $this->query);
 
-                file_put_contents(
-                    $filename,
-                    $response->getBody()->getContents()
-                );
+                file_put_contents($filename, $file_contents);
             }
 
             $downloader = null;
