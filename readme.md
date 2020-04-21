@@ -5,7 +5,7 @@ FluentFM is a PHP package that connects to FileMaker Server's Data API using a f
 
 ### Requirements  
 
-- PHP 7.1+  
+- PHP 7.2+  
 - FileMaker Server 17  
   
 ### Installation  
