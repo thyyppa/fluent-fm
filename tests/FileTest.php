@@ -9,8 +9,7 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class FileTest extends TestBase
 {
-
-    public function testFileUpload() : void
+    public function testFileUpload(): void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
@@ -20,23 +19,22 @@ class FileTest extends TestBase
         $fm->upload('table_c', 'file', __DIR__.'/resources/php.png', 1)->exec();
 
         /** @var Request $request */
-        $request      = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
 
         /* @var Request $request */
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_c/records/1/containers/file/1', $request->getUri()->getPath());
         $this->assertEquals(
             3531,
-            $request->getHeader('Content-Length')[ 0 ]
+            $request->getHeader('Content-Length')[0]
         );
         $this->assertContains(
             'multipart/form-data;',
-            $request->getHeader('Content-Type')[ 0 ]
+            $request->getHeader('Content-Type')[0]
         );
     }
 
-
-    public function testFileDownload() : void
+    public function testFileDownload(): void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
@@ -49,13 +47,13 @@ class FileTest extends TestBase
                ->limit(1)
                ->exec();
         } catch (ConnectException $e) {
-            if ($e->getHandlerContext()[ 'errno' ] !== 6) {
+            if ($e->getHandlerContext()['errno'] !== 6) {
                 throw $e;
             }
         }
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_c/_find', $request->getUri()->getPath());
         $this->assertEquals(

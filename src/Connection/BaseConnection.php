@@ -12,7 +12,6 @@ use Hyyppa\FluentFM\Exception\FilemakerException;
  */
 abstract class BaseConnection
 {
-
     /**
      * @var Client
      */
@@ -38,7 +37,6 @@ abstract class BaseConnection
      */
     protected $field_cache = [];
 
-
     /**
      * BaseConnection constructor.
      *
@@ -60,12 +58,11 @@ abstract class BaseConnection
         ];
 
         $this->client = $client ?? new Client(
-                array_merge($options, $this->config[ 'client' ])
+                array_merge($options, $this->config['client'])
             );
 
         $this->getToken();
     }
-
 
     /**
      * Get specified value from config, or if not specified
@@ -77,20 +74,18 @@ abstract class BaseConnection
      */
     protected function config(string $key = null)
     {
-        return $key ? $this->config[ $key ] : $this->config;
+        return $key ? $this->config[$key] : $this->config;
     }
-
 
     /**
      * Generate authorization header.
      *
      * @return array
      * @throws FilemakerException
-     *
      */
-    protected function authHeader() : array
+    protected function authHeader(): array
     {
-        if ( ! $this->token) {
+        if (! $this->token) {
             $this->getToken();
         }
 
@@ -99,7 +94,6 @@ abstract class BaseConnection
         ];
     }
 
-
     /**
      * Request api access token from server.
      *
@@ -107,7 +101,7 @@ abstract class BaseConnection
      * @throws FilemakerException
      * @throws ErrorException
      */
-    protected function getToken() : string
+    protected function getToken(): string
     {
         try {
             $header = $this->client->post('sessions', [
@@ -117,11 +111,11 @@ abstract class BaseConnection
                 ],
             ])->getHeader('X-FM-Data-Access-Token');
 
-            if ( ! count($header)) {
+            if (! count($header)) {
                 throw new FilemakerException('Filemaker did not return an auth token. Is the server online?', 404);
             }
 
-            return $this->token = $header[ 0 ];
+            return $this->token = $header[0];
         } catch (ClientException $e) {
             throw new FilemakerException('Filemaker access unauthorized - please check your credentials', 401, $e);
         } catch (ErrorException $e) {

@@ -8,15 +8,14 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class AuthTest extends TestBase
 {
-
-    public function testToken() : void
+    public function testToken(): void
     {
         new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
         ]));
 
         /** @var Request $request */
-        $request = $this->history[ 0 ][ 'request' ];
+        $request = $this->history[0]['request'];
 
         $this->assertEquals('POST', $request->getMethod());
         $this->assertArraySubset([
@@ -25,8 +24,7 @@ class AuthTest extends TestBase
         ], $request->getHeaders());
     }
 
-
-    public function testTokenAuthRetry() : void
+    public function testTokenAuthRetry(): void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
@@ -52,8 +50,7 @@ class AuthTest extends TestBase
         );
     }
 
-
-    public function testRefreshToken() : void
+    public function testRefreshToken(): void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
@@ -66,8 +63,7 @@ class AuthTest extends TestBase
         $this->assertCount(3, $this->history);
     }
 
-
-    public function testLogout() : void
+    public function testLogout(): void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
@@ -77,7 +73,7 @@ class AuthTest extends TestBase
         $fm->logout();
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals('DELETE', $request->getMethod());
     }
 }

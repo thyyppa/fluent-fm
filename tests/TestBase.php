@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class TestBase extends TestCase
 {
-
     protected static $config = [
         'host' => '__hostname__',
         'file' => '__filemaker__',
@@ -19,30 +18,28 @@ class TestBase extends TestCase
         'pass' => '__password__',
     ];
 
-    protected $history      = [];
+    protected $history = [];
     protected $real_history = [];
-
 
     /**
      * @return Response
      */
-    protected static function token_request() : Response
+    protected static function token_request(): Response
     {
         return new Response(200, [
             'X-FM-Data-Access-Token' => ['__token__'],
         ]);
     }
 
-
     /**
      * @param  array  $responses
      *
      * @return Client
      */
-    protected function client(array $responses = []) : Client
+    protected function client(array $responses = []): Client
     {
         $this->history = [];
-        $responses[]   = new Response(200, [], file_get_contents(__DIR__.'/responses/OK.json'));
+        $responses[] = new Response(200, [], file_get_contents(__DIR__.'/responses/OK.json'));
 
         $stack = HandlerStack::create(
             new MockHandler($responses)

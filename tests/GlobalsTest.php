@@ -8,8 +8,7 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class GlobalsTest extends TestBase
 {
-
-    public function testSetGlobals() : void
+    public function testSetGlobals(): void
     {
         //todo: proper response
         $fm = new FluentFMRepository(static::$config, $this->client([
@@ -25,7 +24,7 @@ class GlobalsTest extends TestBase
         );
 
         /** @var Request $request */
-        $request = $this->history[ 1 ][ 'request' ];
+        $request = $this->history[1]['request'];
         $this->assertEquals('PATCH', $request->getMethod());
         $this->assertEquals('globals', $request->getUri()->getPath());
         $this->assertEquals(
