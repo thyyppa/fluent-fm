@@ -8,8 +8,7 @@ use Hyyppa\FluentFM\Exception\FilemakerException;
 
 class ExceptionTest extends TestBase
 {
-
-    public function testAuthFailedAfterRetry() : void
+    public function testAuthFailedAfterRetry(): void
     {
         $this->expectException(FilemakerException::class);
         $this->expectExceptionCode(401);
@@ -22,8 +21,7 @@ class ExceptionTest extends TestBase
         $fm->records('table_a')->get();
     }
 
-
-    public function testLayoutMissing() : void
+    public function testLayoutMissing(): void
     {
         $this->expectException(FilemakerException::class);
         $this->expectExceptionCode(105);
@@ -36,8 +34,7 @@ class ExceptionTest extends TestBase
         $fm->records('table_z')->get();
     }
 
-
-    public function testFieldMissing() : void
+    public function testFieldMissing(): void
     {
         $this->expectException(FilemakerException::class);
         $this->expectExceptionCode(102);
@@ -50,8 +47,7 @@ class ExceptionTest extends TestBase
         $fm->records('table_z')->get();
     }
 
-
-    public function testFieldInvalid() : void
+    public function testFieldInvalid(): void
     {
         $this->expectException(FilemakerException::class);
         $this->expectExceptionCode(509);
@@ -64,8 +60,7 @@ class ExceptionTest extends TestBase
         $fm->records('table_z')->get();
     }
 
-
-    public function testFilemakerDidNotReturnToken() : void
+    public function testFilemakerDidNotReturnToken(): void
     {
         $this->expectException(FilemakerException::class);
         $this->expectExceptionCode(404);

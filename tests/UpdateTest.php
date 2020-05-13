@@ -8,8 +8,7 @@ use Hyyppa\FluentFM\Connection\FluentFMRepository;
 
 class UpdateTest extends TestBase
 {
-
-    public function testUpdate() : void
+    public function testUpdate(): void
     {
         $fm = new FluentFMRepository(static::$config, $this->client([
             static::token_request(),
@@ -31,7 +30,7 @@ class UpdateTest extends TestBase
         );
 
         /** @var Request $request */
-        $request = $this->history[ 2 ][ 'request' ];
+        $request = $this->history[2]['request'];
         $this->assertEquals('PATCH', $request->getMethod());
         $this->assertEquals('layouts/table_a/records/1', $request->getUri()->getPath());
         $this->assertEquals(json_encode(['fieldData' => $data]), $request->getBody()->getContents());
