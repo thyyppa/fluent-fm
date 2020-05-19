@@ -253,9 +253,9 @@ $fm->find('customers')
 
 ### Troubleshooting
 
-##### Error: SSL certificate problem: unable to get local issuer certificate
+#### Error: SSL certificate problem: unable to get local issuer certificate
 
-If you run into this error try adding `[ 'client' => [ 'verify' => false ]` on setup, like so:
+If you run into this error try adding `'client' => [ 'verify' => false ],` to the setup config, like so:
 
 ```php  
 <?php  
