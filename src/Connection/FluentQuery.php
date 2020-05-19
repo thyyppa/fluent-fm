@@ -327,18 +327,7 @@ trait FluentQuery
      */
     public function clearQuery(): FluentFM
     {
-        $this->query = [
-            'limit'                   => null,
-            'offset'                  => null,
-            'sort'                    => null,
-            'query'                   => null,
-            'script'                  => null,
-            'script.param'            => null,
-            'script.prerequest'       => null,
-            'script.prerequest.param' => null,
-            'script.presort'          => null,
-            'script.presort.param'    => null,
-        ];
+        $this->query = [];
 
         return $this;
     }
