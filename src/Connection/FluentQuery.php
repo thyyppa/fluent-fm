@@ -154,6 +154,8 @@ trait FluentQuery
                 $value = '*';
         }
 
+        $this->query['query'] = $this->query['query'] ?? [];
+
         $this->query['query'][0][$field] = $value;
 
         return $this;

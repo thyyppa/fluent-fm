@@ -333,7 +333,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $results = null;
 
-        if (! isset($this->query['query'][0]) || ! \is_array($this->query['query'][0])) {
+        if (!isset($this->query['query']) || !\is_array($this->query['query'])) {
             $this->has('id');
         }
 
