@@ -9,7 +9,6 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use Hyyppa\Toxx\Contracts\JsonAndArrayOutput;
 use PHPUnit\Framework\TestCase;
-use Tests\BaseTest;
 
 class TestBase extends TestCase
 {
@@ -54,7 +53,6 @@ class TestBase extends TestCase
         ]);
     }
 
-
     /**
      * @param  array  $expected
      * @param  array  $actual
@@ -76,7 +74,6 @@ class TestBase extends TestCase
 
         return $this;
     }
-
 
     /**
      * @param  array  $expected
@@ -100,7 +97,6 @@ class TestBase extends TestCase
         return $this;
     }
 
-
     /**
      * @param          $expected
      * @param  string  $actual
@@ -117,7 +113,6 @@ class TestBase extends TestCase
         return $this;
     }
 
-
     /**
      * @param                      $expected
      * @param  JsonAndArrayOutput  $actual
@@ -131,5 +126,4 @@ class TestBase extends TestCase
 
         return $this;
     }
-
 }
