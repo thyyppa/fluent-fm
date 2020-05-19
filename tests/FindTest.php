@@ -33,7 +33,7 @@ class FindTest extends TestBase
         );
 
         $stub = json_decode(file_get_contents(__DIR__.'/responses/records.json'), true);
-        $this->assertArraySubset([
+        $this->assertArrayHas([
             1 => $stub['response']['data'][0]['fieldData'],
             2 => $stub['response']['data'][1]['fieldData'],
         ], $result);
@@ -55,7 +55,7 @@ class FindTest extends TestBase
         $request = $this->history[1]['request'];
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_a/_find', $request->getUri()->getPath());
-        $this->assertEquals(
+        $this->assertStringContainsString(
             $request->getBody()->getContents(),
             '{"query":[{"field_x":"=x"}]}'
         );
@@ -77,7 +77,7 @@ class FindTest extends TestBase
         $request = $this->history[1]['request'];
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_a/_find', $request->getUri()->getPath());
-        $this->assertEquals(
+        $this->assertStringContainsString(
             $request->getBody()->getContents(),
             '{"query":[{"field_x":"=x","deleted_at":"="}]}'
         );

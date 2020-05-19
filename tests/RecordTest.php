@@ -21,11 +21,11 @@ class RecordTest extends TestBase
         $request = $this->history[1]['request'];
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals('layouts/table_a/records/1', $request->getUri()->getPath());
-        $this->assertArraySubset([
+        $this->assertArrayHas([
             'Authorization' => ['Bearer __token__'],
         ], $request->getHeaders());
 
-        $this->assertArraySubset(
+        $this->assertArrayHas(
             ['response' => ['data' => [['fieldData' => $record[1]]]]],
             json_decode(
                 file_get_contents(__DIR__.'/responses/record.json'),
@@ -48,7 +48,7 @@ class RecordTest extends TestBase
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals('layouts/table_a/records', $request->getUri()->getPath());
         $this->assertEquals('_limit=2', $request->getUri()->getQuery());
-        $this->assertArraySubset([
+        $this->assertArrayHas([
             'Authorization' => ['Bearer __token__'],
         ], $request->getHeaders());
 

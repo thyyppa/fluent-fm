@@ -52,6 +52,6 @@ class DeleteTest extends TestBase
         $request = $this->history[2]['request'];
         $this->assertEquals('PATCH', $request->getMethod());
         $this->assertEquals('layouts/table_a/records/1', $request->getUri()->getPath());
-        $this->assertContains('{"fieldData":{"deleted_at":', $request->getBody()->getContents());
+        $this->assertStringContainsString('{"fieldData":{"deleted_at":', $request->getBody()->getContents());
     }
 }

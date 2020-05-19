@@ -28,7 +28,7 @@ class FileTest extends TestBase
             3531,
             $request->getHeader('Content-Length')[0]
         );
-        $this->assertContains(
+        $this->assertStringContainsString(
             'multipart/form-data;',
             $request->getHeader('Content-Type')[0]
         );
