@@ -25,7 +25,7 @@ class ScriptTest extends TestBase
         /** @var Request $request */
         $request = $this->history[1]['request'];
         $this->assertEquals(
-            '{"query":[{"id":"=1"}],"script":"scriptname","script.param":"scriptparam","script.prerequest":"prerequest_scriptname","script.prerequest.param":"prerequest_scriptparam","script.presort":"presort_scriptname","script.presort.param":"presort_scriptparam"}',
+            '{"query":[{"id":"=1"}],"script":"scriptname","script.param":"scriptparam","script.presort":"presort_scriptname","script.presort.param":"presort_scriptparam","script.prerequest":"prerequest_scriptname","script.prerequest.param":"prerequest_scriptparam"}',
             $request->getBody()->getContents()
         );
     }
@@ -46,7 +46,7 @@ class ScriptTest extends TestBase
         /** @var Request $request */
         $request = $this->history[1]['request'];
         $this->assertEquals(
-            'script=scriptname&script.param=scriptparam&script.prerequest=prerequest_scriptname&script.prerequest.param=prerequest_scriptparam&script.presort=presort_scriptname&script.presort.param=presort_scriptparam',
+            '_script=scriptname&_script.param=scriptparam&_script.presort=presort_scriptname&_script.presort.param=presort_scriptparam&_script.prerequest=prerequest_scriptname&_script.prerequest.param=prerequest_scriptparam',
             $request->getUri()->getQuery()
         );
     }

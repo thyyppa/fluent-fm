@@ -57,8 +57,8 @@ class FileTest extends TestBase
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_c/_find', $request->getUri()->getPath());
         $this->assertEquals(
-            $request->getBody()->getContents(),
-            '{"limit":1,"query":[{"id":"=1"}]}'
+            '{"query":[{"id":"=1"}],"limit":1}',
+            $request->getBody()->getContents()
         );
     }
 }

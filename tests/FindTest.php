@@ -28,8 +28,8 @@ class FindTest extends TestBase
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_a/_find', $request->getUri()->getPath());
         $this->assertEquals(
-            $request->getBody()->getContents(),
-            '{"limit":2,"offset":1,"sort":"[{\"fieldName\":\"field_y\",\"sortOrder\":\"ascend\"}]","query":[{"field_x":"=x","field_y":"=*"}]}'
+            '{"query":[{"field_x":"=x","field_y":"=*"}],"sort":[{"fieldName":"field_y","sortOrder":"ascend"}],"limit":2,"offset":1}',
+            $request->getBody()->getContents()
         );
 
         $stub = json_decode(file_get_contents(__DIR__.'/responses/records.json'), true);
