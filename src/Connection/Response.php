@@ -68,9 +68,10 @@ class Response
      *
      * @throws FilemakerException
      */
-    public static function check(ResponseInterface $response, array $query): void
+    public static function check(ResponseInterface $response, $query): void
     {
         $body = static::body($response);
+        $query = is_array($query) ? $query : json_decode($query, true);
 
         if (! isset($body->messages)) {
             return;
