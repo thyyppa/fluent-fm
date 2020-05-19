@@ -28,7 +28,7 @@ class FileTest extends TestBase
             3531,
             $request->getHeader('Content-Length')[0]
         );
-        $this->assertContains(
+        $this->assertStringContainsString(
             'multipart/form-data;',
             $request->getHeader('Content-Type')[0]
         );
@@ -57,8 +57,8 @@ class FileTest extends TestBase
         $this->assertEquals('POST', $request->getMethod());
         $this->assertEquals('layouts/table_c/_find', $request->getUri()->getPath());
         $this->assertEquals(
-            $request->getBody()->getContents(),
-            '{"limit":1,"query":[{"id":"=1"}]}'
+            '{"query":[{"id":"=1"}],"limit":1}',
+            $request->getBody()->getContents()
         );
     }
 }

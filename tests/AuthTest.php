@@ -18,7 +18,7 @@ class AuthTest extends TestBase
         $request = $this->history[0]['request'];
 
         $this->assertEquals('POST', $request->getMethod());
-        $this->assertArraySubset([
+        $this->assertArrayHas([
             'Authorization' => ['Basic X191c2VybmFtZV9fOl9fcGFzc3dvcmRfXw=='],
             'Content-Type'  => ['application/json'],
         ], $request->getHeaders());

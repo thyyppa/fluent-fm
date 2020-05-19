@@ -62,10 +62,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             $response = $this->client->post(Url::find($layout), [
                 'Content-Type' => 'application/json',
                 'headers'      => $this->authHeader(),
-                'json'         => array_filter($this->query),
+                'json'         => $this->queryJson(),
             ]);
 
-            Response::check($response, array_filter($this->query));
+            Response::check($response, $this->queryJson());
 
             return Response::records($response, $this->with_portals);
         };
@@ -225,7 +225,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 $response = $downloader->get($record[$field]);
                 $file_contents = $response->getBody()->getContents();
 
-                Response::check($response, $this->query);
+                Response::check($response, $this->queryString());
 
                 file_put_contents($filename, $file_contents);
             }
@@ -249,7 +249,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                     'headers' => $this->authHeader(),
                 ]);
 
-                Response::check($response, $this->query);
+                Response::check($response, $this->queryString());
             }
 
             return true;
@@ -333,7 +333,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $results = null;
 
-        if (! isset($this->query['query'][0]) || ! \is_array($this->query['query'][0])) {
+        if (!isset($this->query['query']) || !\is_array($this->query['query'])) {
             $this->has('id');
         }
 
@@ -348,7 +348,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 $this->getToken();
                 $results = ($this->callback)();
             } elseif ($e instanceof RequestException && $response = $e->getResponse()) {
-                Response::check($response, $this->query);
+                Response::check($response, $this->queryString());
             } else {
                 throw $e;
             }

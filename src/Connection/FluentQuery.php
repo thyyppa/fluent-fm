@@ -9,10 +9,11 @@ use Hyyppa\FluentFM\Contract\FluentFM;
  */
 trait FluentQuery
 {
+
     /**
      * @var array
      */
-    protected $query;
+    protected $query = [];
 
     /**
      * @var bool
@@ -76,15 +77,16 @@ trait FluentQuery
      */
     public function sort(string $field, bool $ascending = true): FluentFM
     {
-        $this->query['sort'] = json_encode([
-            [
-                'fieldName' => $field,
-                'sortOrder' => $ascending ? 'ascend' : 'descend',
-            ],
-        ]);
+        $this->query['sort'] = $this->query['sort'] ?? [];
+
+        $this->query['sort'][] = [
+            'fieldName' => $field,
+            'sortOrder' => $ascending ? 'ascend' : 'descend',
+        ];
 
         return $this;
     }
+
 
     /**
      * Sort results descending by field.
@@ -153,10 +155,38 @@ trait FluentQuery
                 $value = '*';
         }
 
+        $this->query['query'] = $this->query['query'] ?? [];
+
         $this->query['query'][0][$field] = $value;
 
         return $this;
     }
+
+
+    /**
+     * @param         $field
+     * @param  array  $params
+     *
+     * @return self|FluentFM
+     */
+    public function orWhere($field, ...$params): FluentFM
+    {
+        switch (\count($params)) {
+            case  1:
+                $value = '='.$params[0];
+                break;
+            case  2:
+                $value = $params[0].$params[1];
+                break;
+            default:
+                $value = '*';
+        }
+
+        $this->query['query'][][$field] = $value;
+
+        return $this;
+    }
+
 
     /**
      * @param  string  $field
@@ -186,14 +216,32 @@ trait FluentQuery
         $output = [];
 
         foreach ($this->query as $param => $value) {
-            if (strpos($param, 'script') !== 0) {
+
+            if ($param === 'query') {
+                continue;
+            }
+
+            if (!stristr('sort', $param)) {
                 $param = '_'.$param;
             }
 
             $output[$param] = $value;
         }
 
-        $output['_query'] = null;
+        return $output;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function queryJson(): array
+    {
+        $output = [];
+
+        foreach ($this->query as $param => $value) {
+            $output[$param] = $value;
+        }
 
         return $output;
     }
@@ -279,18 +327,7 @@ trait FluentQuery
      */
     public function clearQuery(): FluentFM
     {
-        $this->query = [
-            'limit'                   => null,
-            'offset'                  => null,
-            'sort'                    => null,
-            'query'                   => null,
-            'script'                  => null,
-            'script.param'            => null,
-            'script.prerequest'       => null,
-            'script.prerequest.param' => null,
-            'script.presort'          => null,
-            'script.presort.param'    => null,
-        ];
+        $this->query = [];
 
         return $this;
     }
