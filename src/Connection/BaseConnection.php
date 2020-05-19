@@ -58,7 +58,7 @@ abstract class BaseConnection
         ];
 
         $this->client = $client ?? new Client(
-                array_merge($options, $this->config['client'])
+                array_merge($options, $this->config['client'] ?? [])
             );
 
         $this->getToken();
