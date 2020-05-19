@@ -9,7 +9,6 @@ use Hyyppa\FluentFM\Contract\FluentFM;
  */
 trait FluentQuery
 {
-
     /**
      * @var array
      */
@@ -87,7 +86,6 @@ trait FluentQuery
         return $this;
     }
 
-
     /**
      * Sort results descending by field.
      *
@@ -162,7 +160,6 @@ trait FluentQuery
         return $this;
     }
 
-
     /**
      * @param         $field
      * @param  array  $params
@@ -186,7 +183,6 @@ trait FluentQuery
 
         return $this;
     }
-
 
     /**
      * @param  string  $field
@@ -216,12 +212,11 @@ trait FluentQuery
         $output = [];
 
         foreach ($this->query as $param => $value) {
-
             if ($param === 'query') {
                 continue;
             }
 
-            if (!stristr('sort', $param)) {
+            if (! stristr('sort', $param)) {
                 $param = '_'.$param;
             }
 
@@ -230,7 +225,6 @@ trait FluentQuery
 
         return $output;
     }
-
 
     /**
      * @return array
