@@ -216,8 +216,10 @@ trait FluentQuery
                 continue;
             }
 
-            if (! stristr('sort', $param)) {
-                $param = '_'.$param;
+            $param = '_'.$param;
+
+            if ($param === '_sort') {
+                $value = json_encode($value);
             }
 
             $output[$param] = $value;
