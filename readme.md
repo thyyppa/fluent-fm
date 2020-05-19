@@ -206,7 +206,8 @@ $fm->find('customers')
 ->sortDesc( <field> )
 ->withPortals()
 ->withoutPortals()
-->where( <field>, <params> )
+->where( <field>, <params> ) // multiple calls act as "and"
+->orWhere( <field>, <params> )
 ->whereEmpty( <field> )
 ->has( <field> )
 ->whereNotEmpty( <field> )
@@ -250,6 +251,29 @@ $fm->find('customers')
 ->reset()
 ```
 
+### Troubleshooting
+
+##### Error: SSL certificate problem: unable to get local issuer certificate
+
+If you run into this error try adding `[ 'client' => [ 'verify' => false ]` on setup, like so:
+
+```php  
+<?php  
+  
+use Hyyppa\FluentFM\Connection\FluentFMRepository;  
+  
+$fm = new FluentFMRepository([  
+    'file' => 'FilemakerFilename',  
+    'host' => '127.0.0.1',  
+    'user' => 'Admin',  
+    'pass' => 'secret',
+    'client' => [
+        'verify' => false
+    ],
+]);  
+  
+// ...
+```
 
 ### License
 
