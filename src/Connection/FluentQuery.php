@@ -9,10 +9,11 @@ use Hyyppa\FluentFM\Contract\FluentFM;
  */
 trait FluentQuery
 {
+
     /**
      * @var array
      */
-    protected $query;
+    protected $query = [];
 
     /**
      * @var bool
@@ -158,6 +159,32 @@ trait FluentQuery
         return $this;
     }
 
+
+    /**
+     * @param         $field
+     * @param  array  $params
+     *
+     * @return self|FluentFM
+     */
+    public function orWhere($field, ...$params): FluentFM
+    {
+        switch (\count($params)) {
+            case  1:
+                $value = '='.$params[0];
+                break;
+            case  2:
+                $value = $params[0].$params[1];
+                break;
+            default:
+                $value = '*';
+        }
+
+        $this->query['query'][][$field] = $value;
+
+        return $this;
+    }
+
+
     /**
      * @param  string  $field
      *
@@ -186,14 +213,32 @@ trait FluentQuery
         $output = [];
 
         foreach ($this->query as $param => $value) {
-            if (strpos($param, 'script') !== 0) {
+
+            if ($param === 'query') {
+                continue;
+            }
+
+            if (!stristr('sort', $param)) {
                 $param = '_'.$param;
             }
 
             $output[$param] = $value;
         }
 
-        $output['_query'] = null;
+        return $output;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function queryJson(): array
+    {
+        $output = [];
+
+        foreach ($this->query as $param => $value) {
+            $output[$param] = $value;
+        }
 
         return $output;
     }
