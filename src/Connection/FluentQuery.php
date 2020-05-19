@@ -77,15 +77,16 @@ trait FluentQuery
      */
     public function sort(string $field, bool $ascending = true): FluentFM
     {
-        $this->query['sort'] = json_encode([
-            [
-                'fieldName' => $field,
-                'sortOrder' => $ascending ? 'ascend' : 'descend',
-            ],
-        ]);
+        $this->query['sort'] = $this->query['sort'] ?? [];
+
+        $this->query['sort'][] = [
+            'fieldName' => $field,
+            'sortOrder' => $ascending ? 'ascend' : 'descend',
+        ];
 
         return $this;
     }
+
 
     /**
      * Sort results descending by field.
