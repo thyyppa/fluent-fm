@@ -81,7 +81,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $response = $this->client->get(Url::layout($layout), [
             'Content-Type' => 'application/json',
-            'headers'      => $this->authHeader()
+            'headers'      => $this->authHeader(),
         ]);
 
         Response::check($response, []);
@@ -98,7 +98,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             $fields[strtolower($value_list->name)] = $values;
         }
 
-        if (!array_key_exists(strtolower($field), $fields)) {
+        if (! array_key_exists(strtolower($field), $fields)) {
             throw new FilemakerException("Value list for field '$field' not found on layout '$layout'");
         }
 
@@ -112,7 +112,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $response = $this->client->get(Url::layout($layout), [
             'Content-Type' => 'application/json',
-            'headers'      => $this->authHeader()
+            'headers'      => $this->authHeader(),
         ]);
 
         Response::check($response, []);
@@ -123,7 +123,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             $fields[strtolower($value_list->name)] = $value_list;
         }
 
-        if (!array_key_exists(strtolower($field), $fields)) {
+        if (! array_key_exists(strtolower($field), $fields)) {
             throw new FilemakerException("Metadata for field '$field' not found on layout '$layout'");
         }
 
@@ -267,10 +267,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             }
 
             $downloader = new Client([
-                                         'verify'  => false,
-                                         'headers' => $this->authHeader(),
-                                         'cookies' => true,
-                                     ]);
+                'verify'  => false,
+                'headers' => $this->authHeader(),
+                'cookies' => true,
+            ]);
 
             foreach ($records as $record) {
                 $ext = pathinfo(
