@@ -253,8 +253,10 @@ $fm->find('customers')
 
 ##### Get Field Value List
 ```php
+...
+
 // get value list for field
-->valueList( <layout>, <field> )
+$fm->valueList( <layout>, <field> )
 
  // returns array like:
  // [
@@ -266,26 +268,28 @@ $fm->find('customers')
 
 ##### Get Field Metadata
 ```php
+...
+
 // get metadata for field
-->fieldMeta( <layout>, <field> )
+$fm->fieldMeta( <layout>, <field> )
 
  // returns array like:
  // [
- //   "name"            => "CustomerName",
- //   "type"            => "normal",
- //   "displayType"     => "editText",
- //   "result"          => "text",
- //   "valueList"       => "Text",
- //   "global"          => false,
- //   "autoEnter"       => false,
- //   "fourDigitYear"   => false,
- //   "maxRepeat"       => 1,
- //   "maxCharacters"   => 0,
- //   "notEmpty"        => false,
- //   "numeric"         => false,
- //   "timeOfDay"       => false,
- //   "repetitionStart" => 1,
- //   "repetitionEnd"   => 1,
+ //   'name'            => 'CustomerName',
+ //   'type'            => 'normal',
+ //   'displayType'     => 'editText',
+ //   'result'          => 'text',
+ //   'valueList'       => 'Text',
+ //   'global'          => false,
+ //   'autoEnter'       => false,
+ //   'fourDigitYear'   => false,
+ //   'maxRepeat'       => 1,
+ //   'maxCharacters'   => 0,
+ //   'notEmpty'        => false,
+ //   'numeric'         => false,
+ //   'timeOfDay'       => false,
+ //   'repetitionStart' => 1,
+ //   'repetitionEnd'   => 1,
  // ]
 ```
 
