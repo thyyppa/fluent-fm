@@ -5,6 +5,7 @@ namespace Hyyppa\FluentFM\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Hyyppa\FluentFM\Contract\FluentFM;
+use Hyyppa\FluentFM\Exception\FilemakerException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -71,6 +72,62 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         };
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function valueList(string $layout, string $field): array
+    {
+        $response = $this->client->get(Url::layout($layout), [
+            'Content-Type' => 'application/json',
+            'headers'      => $this->authHeader()
+        ]);
+
+        Response::check($response, []);
+
+        $fields = [];
+
+        foreach (Response::body($response)->response->valueLists as $value_list) {
+            $values = [];
+
+            foreach ($value_list->values as $value) {
+                $values[$value->displayValue] = $value->value;
+            }
+
+            $fields[strtolower($value_list->name)] = $values;
+        }
+
+        if (!array_key_exists(strtolower($field), $fields)) {
+            throw new FilemakerException("Value list for field '$field' not found on layout '$layout'");
+        }
+
+        return $fields[strtolower($field)];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fieldMeta(string $layout, string $field): array
+    {
+        $response = $this->client->get(Url::layout($layout), [
+            'Content-Type' => 'application/json',
+            'headers'      => $this->authHeader()
+        ]);
+
+        Response::check($response, []);
+
+        $fields = [];
+
+        foreach (Response::body($response)->response->fieldMetaData as $value_list) {
+            $fields[strtolower($value_list->name)] = $value_list;
+        }
+
+        if (!array_key_exists(strtolower($field), $fields)) {
+            throw new FilemakerException("Metadata for field '$field' not found on layout '$layout'");
+        }
+
+        return (array) $fields[strtolower($field)];
     }
 
     /**
@@ -210,10 +267,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             }
 
             $downloader = new Client([
-                'verify'  => false,
-                'headers' => $this->authHeader(),
-                'cookies' => true,
-            ]);
+                                         'verify'  => false,
+                                         'headers' => $this->authHeader(),
+                                         'cookies' => true,
+                                     ]);
 
             foreach ($records as $record) {
                 $ext = pathinfo(

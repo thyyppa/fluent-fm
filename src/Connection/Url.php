@@ -31,6 +31,16 @@ class Url
     }
 
     /**
+     * @param  string  $layout
+     *
+     * @return string
+     */
+    public static function layout(string $layout): string
+    {
+        return 'layouts/'.$layout;
+    }
+
+    /**
      * @return string
      */
     public static function globals(): string
