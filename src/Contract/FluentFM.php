@@ -59,7 +59,7 @@ interface FluentFM
     public function globals(string $layout, array $fields = []): bool;
 
     /**
-     * Get value lists for specified field
+     * Get value lists for specified field.
      *
      * @param  string  $layout
      * @param  string  $field
@@ -71,7 +71,7 @@ interface FluentFM
     public function valueList(string $layout, string $field): array;
 
     /**
-     * Get metadata for specified field
+     * Get metadata for specified field.
      *
      * @param  string  $layout
      * @param  string  $field
