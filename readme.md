@@ -258,12 +258,12 @@ $fm->find('customers')
 // get value list for field
 $fm->valueList( <layout>, <field> )
 
- // returns array like:
- // [
- //   'DisplayedAsValue1' => 'actual_value_1',
- //   'DisplayedAsValue2' => 'actual_value_2',
- //   ...
- // ]
+// returns array like:
+// [
+//   'DisplayedAsValue1' => 'actual_value_1',
+//   'DisplayedAsValue2' => 'actual_value_2',
+//   ...
+// ]
 ```
 
 ##### Get Field Metadata
@@ -273,24 +273,24 @@ $fm->valueList( <layout>, <field> )
 // get metadata for field
 $fm->fieldMeta( <layout>, <field> )
 
- // returns array like:
- // [
- //   'name'            => 'CustomerName',
- //   'type'            => 'normal',
- //   'displayType'     => 'editText',
- //   'result'          => 'text',
- //   'valueList'       => 'Text',
- //   'global'          => false,
- //   'autoEnter'       => false,
- //   'fourDigitYear'   => false,
- //   'maxRepeat'       => 1,
- //   'maxCharacters'   => 0,
- //   'notEmpty'        => false,
- //   'numeric'         => false,
- //   'timeOfDay'       => false,
- //   'repetitionStart' => 1,
- //   'repetitionEnd'   => 1,
- // ]
+// returns array like:
+// [
+//   'name'            => 'CustomerName',
+//   'type'            => 'normal',
+//   'displayType'     => 'editText',
+//   'result'          => 'text',
+//   'valueList'       => 'Text',
+//   'global'          => false,
+//   'autoEnter'       => false,
+//   'fourDigitYear'   => false,
+//   'maxRepeat'       => 1,
+//   'maxCharacters'   => 0,
+//   'notEmpty'        => false,
+//   'numeric'         => false,
+//   'timeOfDay'       => false,
+//   'repetitionStart' => 1,
+//   'repetitionEnd'   => 1,
+// ]
 ```
 
 ### Troubleshooting
