@@ -97,12 +97,15 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
             $fields[strtolower($value_list->name)] = $values;
         }
+        
+        //get value list field metadata
+        $value_list_name = $this->fieldMeta($layout, $field)['valueList'];
 
-        if (! array_key_exists(strtolower($field), $fields)) {
+        if (! array_key_exists(strtolower($value_list_name), $fields)) {
             throw new FilemakerException("Value list for field '$field' not found on layout '$layout'");
         }
 
-        return $fields[strtolower($field)];
+        return $fields[strtolower($value_list_name)];
     }
 
     /**
