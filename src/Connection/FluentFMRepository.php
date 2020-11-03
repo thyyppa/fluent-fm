@@ -73,22 +73,22 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
         return $this;
     }
-    
-        /**
+
+    /**
      * {@inheritdoc}
      */
     public function valueList(string $layout, string $field): array
     {
         $response = $this->client->get(Url::layout($layout), [
             'Content-Type' => 'application/json',
-            'headers'      => $this->authHeader()
+            'headers'      => $this->authHeader(),
         ]);
         Response::check($response, []);
 
         $fieldMetaDataList = Response::body($response)->response->fieldMetaData;
         $fieldMetaData = $this->getFieldMetaData($layout, $fieldMetaDataList, $field);
 
-        if (!array_key_exists('valueList', $fieldMetaData)) {
+        if (! array_key_exists('valueList', $fieldMetaData)) {
             throw new FilemakerException("The field '$field' does not have an associated value list on layout '$layout'");
         }
 
@@ -100,21 +100,22 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     }
 
     /**
-     * Get specific valueList
-     * 
-     * @param array $valueLists 
-     * @param string $valueListName 
-     * @return array 
+     * Get specific valueList.
+     *
+     * @param array $valueLists
+     * @param string $valueListName
+     * @return array
      */
     protected function getFieldValueList(array $valueLists, string $valueListName): array
     {
         $values = [];
 
         foreach ($valueLists as $valueList) {
-            if ($valueList->name === $valueListName)
+            if ($valueList->name === $valueListName) {
                 foreach ($valueList->values as $item) {
                     $values[$item->displayValue] = $item->value;
                 }
+            }
         }
 
         return $values;
@@ -127,7 +128,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $response = $this->client->get(Url::layout($layout), [
             'Content-Type' => 'application/json',
-            'headers'      => $this->authHeader()
+            'headers'      => $this->authHeader(),
         ]);
 
         Response::check($response, []);
@@ -139,13 +140,13 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     }
 
     /**
-     * Get specific fieldMetaData
-     * 
-     * @param string $layout 
-     * @param array $fieldMetaDataList 
-     * @param string $field 
-     * @return array 
-     * @throws \Hyyppa\FluentFM\Exception\FilemakerException 
+     * Get specific fieldMetaData.
+     *
+     * @param string $layout
+     * @param array $fieldMetaDataList
+     * @param string $field
+     * @return array
+     * @throws \Hyyppa\FluentFM\Exception\FilemakerException
      */
     protected function getFieldMetaData(string $layout, array $fieldMetaDataList, string $field): array
     {
@@ -155,7 +156,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             $fields[strtolower($value_list->name)] = $value_list;
         }
 
-        if (!array_key_exists(strtolower($field), $fields)) {
+        if (! array_key_exists(strtolower($field), $fields)) {
             throw new FilemakerException("Metadata for field '$field' not found on layout '$layout'");
         }
 
