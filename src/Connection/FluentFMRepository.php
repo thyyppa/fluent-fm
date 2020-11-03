@@ -73,36 +73,51 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
         return $this;
     }
-
-    /**
+    
+        /**
      * {@inheritdoc}
      */
     public function valueList(string $layout, string $field): array
     {
         $response = $this->client->get(Url::layout($layout), [
             'Content-Type' => 'application/json',
-            'headers'      => $this->authHeader(),
+            'headers'      => $this->authHeader()
         ]);
-
         Response::check($response, []);
 
-        $fields = [];
+        $fieldMetaDataList = Response::body($response)->response->fieldMetaData;
+        $fieldMetaData = $this->getFieldMetaData($layout, $fieldMetaDataList, $field);
 
-        foreach (Response::body($response)->response->valueLists as $value_list) {
-            $values = [];
-
-            foreach ($value_list->values as $value) {
-                $values[$value->displayValue] = $value->value;
-            }
-
-            $fields[strtolower($value_list->name)] = $values;
+        if (!array_key_exists('valueList', $fieldMetaData)) {
+            throw new FilemakerException("The field '$field' does not have an associated value list on layout '$layout'");
         }
 
-        if (! array_key_exists(strtolower($field), $fields)) {
-            throw new FilemakerException("Value list for field '$field' not found on layout '$layout'");
+        $valueLists = Response::body($response)->response->valueLists;
+        $valueListName = $fieldMetaData['valueList'];
+        $valueList = $this->getFieldValueList($valueLists, $valueListName);
+
+        return $valueList;
+    }
+
+    /**
+     * Get specific valueList
+     * 
+     * @param array $valueLists 
+     * @param string $valueListName 
+     * @return array 
+     */
+    protected function getFieldValueList(array $valueLists, string $valueListName): array
+    {
+        $values = [];
+
+        foreach ($valueLists as $valueList) {
+            if ($valueList->name === $valueListName)
+                foreach ($valueList->values as $item) {
+                    $values[$item->displayValue] = $item->value;
+                }
         }
 
-        return $fields[strtolower($field)];
+        return $values;
     }
 
     /**
@@ -112,18 +127,35 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $response = $this->client->get(Url::layout($layout), [
             'Content-Type' => 'application/json',
-            'headers'      => $this->authHeader(),
+            'headers'      => $this->authHeader()
         ]);
 
         Response::check($response, []);
 
+        $fieldMetaDataList = Response::body($response)->response->fieldMetaData;
+        $fieldMetadata = $this->getFieldMetaData($layout, $fieldMetaDataList, $field);
+
+        return $fieldMetadata;
+    }
+
+    /**
+     * Get specific fieldMetaData
+     * 
+     * @param string $layout 
+     * @param array $fieldMetaDataList 
+     * @param string $field 
+     * @return array 
+     * @throws \Hyyppa\FluentFM\Exception\FilemakerException 
+     */
+    protected function getFieldMetaData(string $layout, array $fieldMetaDataList, string $field): array
+    {
         $fields = [];
 
-        foreach (Response::body($response)->response->fieldMetaData as $value_list) {
+        foreach ($fieldMetaDataList as $value_list) {
             $fields[strtolower($value_list->name)] = $value_list;
         }
 
-        if (! array_key_exists(strtolower($field), $fields)) {
+        if (!array_key_exists(strtolower($field), $fields)) {
             throw new FilemakerException("Metadata for field '$field' not found on layout '$layout'");
         }
 
