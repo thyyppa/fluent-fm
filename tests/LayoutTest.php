@@ -5,6 +5,7 @@ namespace Test;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Hyyppa\FluentFM\Connection\FluentFMRepository;
+use Hyyppa\FluentFM\Exception\FilemakerException;
 
 class LayoutTest extends TestBase
 {
@@ -15,13 +16,13 @@ class LayoutTest extends TestBase
             $this->client(
                 [
                     static::token_request(),
-                    new Response(200, [], file_get_contents(__DIR__.'/responses/layout_response.json')),
-                    new Response(200, [], file_get_contents(__DIR__.'/responses/layout_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/responses/layout_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/responses/layout_response.json')),
                 ]
             )
         );
 
-        $value_list = $fm->valueList('layout_name', 'Region');
+        $value_list = $fm->valueList('layout_name', 'RegionListField');
 
         $this->assertArrayHas(
             [
@@ -33,16 +34,13 @@ class LayoutTest extends TestBase
 
         self::assertArrayNotHasKey('Aaa', $value_list);
 
-        $value_list = $fm->valueList('layout_name', 'value_list_name');
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionMessage("The field 'RegionTextField' does not have an associated value list on layout 'layout_name'");
+        $value_list = $fm->valueList('layout_name', 'RegionTextField');
 
-        $this->assertArrayHas(
-            [
-                'Aaa' => '111',
-                'bBb' => '222',
-                'ccC' => '333',
-            ],
-            $value_list
-        );
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionMessage("Metadata for field 'value_list_name' not found on layout 'layout_name'");
+        $value_list = $fm->valueList('layout_name', 'value_list_name');
 
         self::assertArrayNotHasKey('West', $value_list);
 
@@ -52,6 +50,42 @@ class LayoutTest extends TestBase
         self::assertEquals('layouts/layout_name', $request->getUri()->getPath());
     }
 
+    /** @test */
+    public function testValueListWithTextField()
+    {
+        $fm = new FluentFMRepository(
+            static::$config,
+            $this->client(
+                [
+                    static::token_request(),
+                    new Response(200, [], file_get_contents(__DIR__ . '/responses/layout_response.json')),
+                ]
+            )
+        );
+
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionMessage("The field 'RegionTextField' does not have an associated value list on layout 'layout_name'");
+        $fm->valueList('layout_name', 'RegionTextField');
+    }
+
+    /** @test */
+    public function testValueListWithMissingField()
+    {
+        $fm = new FluentFMRepository(
+            static::$config,
+            $this->client(
+                [
+                    static::token_request(),
+                    new Response(200, [], file_get_contents(__DIR__ . '/responses/layout_response.json')),
+                ]
+            )
+        );
+
+        $this->expectException(FilemakerException::class);
+        $this->expectExceptionMessage("Metadata for field 'value_list_name' not found on layout 'layout_name'");
+        $value_list = $fm->valueList('layout_name', 'value_list_name');
+    }
+
     public function testLayoutFieldMetadata(): void
     {
         $fm = new FluentFMRepository(
@@ -59,54 +93,53 @@ class LayoutTest extends TestBase
             $this->client(
                 [
                     static::token_request(),
-                    new Response(200, [], file_get_contents(__DIR__.'/responses/layout_response.json')),
-                    new Response(200, [], file_get_contents(__DIR__.'/responses/layout_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/responses/layout_response.json')),
+                    new Response(200, [], file_get_contents(__DIR__ . '/responses/layout_response.json')),
                 ]
             )
         );
 
-        $metadata = $fm->fieldMeta('layout_name', 'CustomerName');
+        $metadata = $fm->fieldMeta('layout_name', 'RegionTextField');
 
         self::assertEquals(
             [
-                'name'            => 'CustomerName',
-                'type'            => 'normal',
-                'displayType'     => 'editText',
-                'result'          => 'text',
-                'valueList'       => 'Text',
-                'global'          => false,
-                'autoEnter'       => false,
-                'fourDigitYear'   => false,
-                'maxRepeat'       => 1,
-                'maxCharacters'   => 0,
-                'notEmpty'        => false,
-                'numeric'         => false,
-                'timeOfDay'       => false,
-                'repetitionStart' => 1,
-                'repetitionEnd'   => 1,
+                "name" => "RegionTextField",
+                "type" => "normal",
+                "displayType" => "editText",
+                "result" => "text",
+                "global" => false,
+                "autoEnter" => false,
+                "fourDigitYear" => false,
+                "maxRepeat" => 1,
+                "maxCharacters" => 0,
+                "notEmpty" => false,
+                "numeric" => false,
+                "timeOfDay" => false,
+                "repetitionStart" => 1,
+                "repetitionEnd" => 1
             ],
             (array) $metadata
         );
 
-        $metadata = $fm->fieldMeta('layout_name', 'CustomerName2');
+        $metadata = $fm->fieldMeta('layout_name', 'RegionListField');
 
         self::assertEquals(
             [
-                'name'            => 'CustomerName2',
-                'type'            => 'normal',
-                'displayType'     => 'editText',
-                'result'          => 'text',
-                'valueList'       => 'Text',
-                'global'          => false,
-                'autoEnter'       => false,
-                'fourDigitYear'   => false,
-                'maxRepeat'       => 1,
-                'maxCharacters'   => 0,
-                'notEmpty'        => false,
-                'numeric'         => false,
-                'timeOfDay'       => false,
-                'repetitionStart' => 1,
-                'repetitionEnd'   => 1,
+                "name" => "RegionListField",
+                "type" => "normal",
+                "displayType" => "popupList",
+                "result" => "text",
+                "global" => false,
+                "autoEnter" => false,
+                "fourDigitYear" => false,
+                "maxRepeat" => 1,
+                "maxCharacters" => 0,
+                "notEmpty" => false,
+                "numeric" => false,
+                "timeOfDay" => false,
+                "valueList" => "RegionList",
+                "repetitionStart" => 1,
+                "repetitionEnd" => 1
             ],
             (array) $metadata
         );
