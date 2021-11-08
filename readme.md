@@ -178,6 +178,14 @@ $fm->find('customers')
 
 ---
 
+#### Retrieving Metadata
+
+To retrieve a Layout's metadata (columns types and properties)
+```php  
+$fm->metadata('customers')
+   ->exec();
+```
+
 #### Chainable commands
 
 ```php
