@@ -53,6 +53,26 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
+	/**
+     * {@inheritdoc}
+     */
+    public function metadata($layout): FluentFM
+    {
+        $this->callback = function () use ($layout) {
+            $response = $this->client->get(Url::metadata($layout), [
+                'Content-Type' => 'application/json',
+                'headers'      => $this->authHeader(),
+                'query'        => $this->queryString(),
+            ]);
+
+            Response::check($response, $this->queryString());
+
+            return Response::metadata($response);
+        };
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */

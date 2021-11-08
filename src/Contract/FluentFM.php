@@ -29,6 +29,15 @@ interface FluentFM
      */
     public function records($layout, $id = null): self;
 
+	/**
+     * Get metadata from filemaker table.
+     *
+     * @param      $layout
+     *
+     * @return FluentFM
+     */
+    public function metadata($layout): self;
+
     /**
      * Find records matching current query parameters.
      *
