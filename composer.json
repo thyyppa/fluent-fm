@@ -21,7 +21,7 @@
     },
     "autoload":    {
         "psr-4": {
-            "SIB\\FluentFM\\": "src/"
+            "Hyyppa\\FluentFM\\": "src/"
         }
     },
     "autoload-dev": {
