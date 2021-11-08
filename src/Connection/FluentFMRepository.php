@@ -143,10 +143,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 $response = $this->client->patch(Url::records($layout, $id), [
                     'Content-Type' => 'application/json',
                     'headers'      => $this->authHeader(),
-                    'json'         => ['fieldData' => array_filter($fields)],
+                    'json'         => ['fieldData' => $fields],
                 ]);
 
-                Response::check($response, ['fieldData' => array_filter($fields)]);
+                Response::check($response, ['fieldData' => $fields]);
             }
 
             return true;
