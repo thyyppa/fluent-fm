@@ -264,6 +264,12 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->callback = function () use ($layout, $recordId) {
             $recordIds = $recordId ? [$recordId] : array_keys($this->find($layout)->get());
 
+			// if we haven't found anything to delete
+			if(!$recordIds) {
+				// don't attempt to delete anything, since that would fail
+				return true;
+			}
+
             foreach ($recordIds as $id) {
                 $response = $this->client->delete(Url::records($layout, $id), [
                     'headers' => $this->authHeader(),
