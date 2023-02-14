@@ -483,7 +483,6 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     public function __destruct()
     {
         try {
-            $this->logout();
             unset($this->client);
         } catch (\Exception $e) {
         }
