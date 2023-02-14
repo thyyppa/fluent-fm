@@ -103,6 +103,18 @@ abstract class BaseConnection
      */
     protected function getToken(): string
     {
+        // if we have a cached token available
+		if(
+			\Polyfony\Cache::has(
+				\Polyfony\Config::get('filemaker','token_cache_name') ?? 'FilemakerDataAPIToken'
+			)
+		) {
+			// use this token instead of hitting the API
+			return $this->token = \Polyfony\Cache::get(
+				\Polyfony\Config::get('filemaker','token_cache_name') ?? 'FilemakerDataAPIToken'
+			);
+		}
+
         try {
             $header = $this->client->post('sessions', [
                 'headers' => [
@@ -114,6 +126,14 @@ abstract class BaseConnection
             if (! count($header)) {
                 throw new FilemakerException('Filemaker did not return an auth token. Is the server online?', 404);
             }
+
+			// cache the token (it has an actual lifetime of 15 minutes, we cache it for only 14)
+			\Polyfony\Cache::put(
+				\Polyfony\Config::get('filemaker','token_cache_name') ?? 'FilemakerDataAPIToken', 
+				$header[0], 
+				true, 
+				\Polyfony\Config::get('filemaker','token_cache_duration') ?? 60
+			);
 
             return $this->token = $header[0];
         } catch (ClientException $e) {
