@@ -1,5 +1,5 @@
 {
-    "name":        "sib-retail/fluent-fm",
+    "name":        "thyyppa/fluent-fm",
     "description": "A PHP package for FileMaker Server's Data API using a fluent query builder style interface.",
     "type":        "library",
     "license":     "MIT",
