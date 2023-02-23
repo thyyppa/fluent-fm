@@ -105,14 +105,10 @@ abstract class BaseConnection
     {
         // if we have a cached token available
 		if(
-			\Polyfony\Cache::has(
-				\Polyfony\Config::get('filemaker','token_cache_name') ?? 'FilemakerDataAPIToken'
-			)
+			\Polyfony\Cache::has($this->getTokenCacheName())
 		) {
 			// use this token instead of hitting the API
-			return $this->token = \Polyfony\Cache::get(
-				\Polyfony\Config::get('filemaker','token_cache_name') ?? 'FilemakerDataAPIToken'
-			);
+			return $this->token = \Polyfony\Cache::get($this->getTokenCacheName());
 		}
 
         try {
@@ -129,7 +125,7 @@ abstract class BaseConnection
 
 			// cache the token (it has an actual lifetime of 15 minutes, we cache it for only 14)
 			\Polyfony\Cache::put(
-				\Polyfony\Config::get('filemaker','token_cache_name') ?? 'FilemakerDataAPIToken', 
+				$this->getTokenCacheName(), 
 				$header[0], 
 				true, 
 				\Polyfony\Config::get('filemaker','token_cache_duration') ?? 60
@@ -150,4 +146,18 @@ abstract class BaseConnection
             throw $e;
         }
     }
+
+	/**
+     * Returns a token cache name, unique to this the current database and host
+     *
+     * @return string
+     */
+	protected function getTokenCacheName() :string {
+	
+		return 'filemaker-data-api-token-' . sha1(
+			$this->config('host') . 
+        	$this->config('file')
+		);
+
+	}
 }
