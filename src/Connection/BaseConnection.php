@@ -156,7 +156,7 @@ abstract class BaseConnection
 	
 		return 'filemaker-data-api-token-' . sha1(
 			$this->config('host') . 
-        	$this->config('file')
+			$this->config('file')
 		);
 
 	}
