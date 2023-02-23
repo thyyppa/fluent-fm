@@ -483,6 +483,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     public function __destruct()
     {
         try {
+	    // only destroy the token on Filemaker if we don't have a caching mechanism available
+            if(!$this->isCacheAvailable()) {
+               $this->logout(); 
+            }
             unset($this->client);
         } catch (\Exception $e) {
         }
