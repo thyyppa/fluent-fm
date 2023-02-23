@@ -71,10 +71,10 @@ Otherwise replace `localhost` with the server address.
 use Hyyppa\FluentFM\Connection\FluentFMRepository;  
   
 $fm = new FluentFMRepository([  
-    'file' => 'FilemakerFilename',  
-    'host' => '127.0.0.1',  
-    'user' => 'Admin',  
-    'pass' => 'secret',   
+    'file'     => 'FilemakerFilename',  
+    'host'      => '127.0.0.1',  
+    'user'      => 'Admin',  
+    'pass'      => 'secret'
 ]);  
   
 // get a single record as array
@@ -258,6 +258,34 @@ $fm->metadata('customers')
 // clear query parameters and reset to default options
 ->reset()
 ```
+
+#### Persistent Authentication
+
+If your PHP installation has the APCu module installed, this library is able to cache authentication tokens between requests.
+
+Tokens are : 
+* associated to a filemaker host, database, user and password.
+* valid for 15 minutes from time of creation or last use to query the Data API.
+
+Everytime a token is used to make a new Data API request, its TTL (time to live) in the cache is prolonged by 14.5 minutes.
+
+This mirrors Filemaker's mechanisms which extends the validity of tokens everytime they are used (with a maximum idle lifetime of 15 minutes).
+
+If a token is invalidated while still stored in cache, the Exception is caught by the library and a single other attempt to authenticate and obtain a new token is done transparently by the library.
+
+To define a custom TTL (and TTL extension duration), specify the `token_ttl` when instanciating a `FluentFMRepository` object.
+
+```php
+$fm = new FluentFMRepository([  
+    'file' => 'FilemakerFilename',  
+    'host' => '127.0.0.1',  
+    'user' => 'Admin',  
+    'pass' => 'secret',
+    'token_ttl' => 60, // shorter token cache TTL specified here
+]);  
+```
+
+**This feature should not be used on shared hostings or servers on which you cannot ensure that your APCu is strictly yours**
 
 ### Troubleshooting
 
