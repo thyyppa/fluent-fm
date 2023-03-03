@@ -44,6 +44,24 @@ class Response
         return $records;
     }
 
+	/**
+     * Get response returned metadata.
+     *
+     * @param  ResponseInterface  $response
+     *
+     * @return array
+     */
+    public static function metadata(ResponseInterface $response): array
+    {
+        $metas = [];
+
+        foreach (static::body($response)->response->fieldMetaData as $metadata) {
+            $metas[$metadata->name] = (array) $metadata;
+        }
+
+        return $metas;
+    }
+
     /**
      * Get response returned message.
      *

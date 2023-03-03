@@ -20,6 +20,17 @@ class Url
         return 'layouts/'.$layout.'/records'.$record;
     }
 
+	/**
+     * @param  string  $layout
+     *
+     * @return string
+     */
+    public static function metadata(string $layout): string
+    {
+
+        return 'layouts/'.$layout;
+    }
+
     /**
      * @param  string  $layout
      *

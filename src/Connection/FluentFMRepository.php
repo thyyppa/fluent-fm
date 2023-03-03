@@ -53,6 +53,26 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
+	/**
+     * {@inheritdoc}
+     */
+    public function metadata($layout): FluentFM
+    {
+        $this->callback = function () use ($layout) {
+            $response = $this->client->get(Url::metadata($layout), [
+                'Content-Type' => 'application/json',
+                'headers'      => $this->authHeader(),
+                'query'        => $this->queryString(),
+            ]);
+
+            Response::check($response, $this->queryString());
+
+            return Response::metadata($response);
+        };
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -143,10 +163,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 $response = $this->client->patch(Url::records($layout, $id), [
                     'Content-Type' => 'application/json',
                     'headers'      => $this->authHeader(),
-                    'json'         => ['fieldData' => array_filter($fields)],
+                    'json'         => ['fieldData' => $fields],
                 ]);
 
-                Response::check($response, ['fieldData' => array_filter($fields)]);
+                Response::check($response, ['fieldData' => $fields]);
             }
 
             return true;
@@ -243,6 +263,12 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     {
         $this->callback = function () use ($layout, $recordId) {
             $recordIds = $recordId ? [$recordId] : array_keys($this->find($layout)->get());
+
+			// if we haven't found anything to delete
+			if(!$recordIds) {
+				// don't attempt to delete anything, since that would fail
+				return true;
+			}
 
             foreach ($recordIds as $id) {
                 $response = $this->client->delete(Url::records($layout, $id), [
@@ -345,7 +371,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             $results = ($this->callback)();
         } catch (\Exception $e) {
             if ($e->getCode() === 401 || $e->getCode() === 952) {
-                $this->getToken();
+                $this->getToken(true);
                 $results = ($this->callback)();
             } elseif ($e instanceof RequestException && $response = $e->getResponse()) {
                 Response::check($response, $this->queryString());
@@ -457,7 +483,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     public function __destruct()
     {
         try {
-            $this->logout();
+	    // only destroy the token on Filemaker if we don't have a caching mechanism available
+            if(!$this->isCacheAvailable()) {
+               $this->logout(); 
+            }
             unset($this->client);
         } catch (\Exception $e) {
         }
