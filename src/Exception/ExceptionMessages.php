@@ -6,7 +6,6 @@ class ExceptionMessages
 {
     /**
      * @param  string  $message
-     *
      * @return string
      */
     protected static function baseMessage($message): string
@@ -15,9 +14,8 @@ class ExceptionMessages
     }
 
     /**
-     * @param       $message
+     * @param  $message
      * @param  array  $query
-     *
      * @return string
      */
     public static function generic($message, array $query): string
@@ -29,9 +27,8 @@ class ExceptionMessages
     }
 
     /**
-     * @param       $message
+     * @param  $message
      * @param  array  $query
-     *
      * @return string
      */
     public static function fieldMissing($message, array $query): string
@@ -48,9 +45,8 @@ class ExceptionMessages
     }
 
     /**
-     * @param       $message
+     * @param  $message
      * @param  array  $query
-     *
      * @return string
      */
     public static function fieldInvalid($message, array $query): string
@@ -83,7 +79,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      *
      * @param  string  $title
      * @param  int  $len
-     *
      * @return string
      */
     public static function sep(string $title = '', int $len = 120): string
@@ -101,7 +96,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      *
      * @param  string  $string
      * @param  int  $len
-     *
      * @return string
      */
     public static function textWrap(string $string, int $len = 120): string
@@ -113,7 +107,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      * Strip CLI formatting if not in CLI.
      *
      * @param  string  $message
-     *
      * @return string
      */
     protected static function format(string $message): string
@@ -135,7 +128,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      * ];.
      *
      * @param  array  $query
-     *
      * @return string
      */
     protected static function queryDump(array $query): string

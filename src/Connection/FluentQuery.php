@@ -28,7 +28,6 @@ trait FluentQuery
      * Limit the number of results returned.
      *
      * @param  int  $limit
-     *
      * @return self|FluentFM
      */
     public function limit(int $limit): FluentFM
@@ -42,7 +41,6 @@ trait FluentQuery
      * Begin result set at the given record id.
      *
      * @param  int  $offset
-     *
      * @return self|FluentFMRepository
      */
     public function offset(int $offset): FluentFM
@@ -56,7 +54,6 @@ trait FluentQuery
      * Sort results ascending by field.
      *
      * @param  string  $field
-     *
      * @return self|FluentFM
      */
     public function sortAsc(string $field): FluentFM
@@ -71,7 +68,6 @@ trait FluentQuery
      *
      * @param  string  $field
      * @param  bool  $ascending
-     *
      * @return self|FluentFM
      */
     public function sort(string $field, bool $ascending = true): FluentFM
@@ -90,7 +86,6 @@ trait FluentQuery
      * Sort results descending by field.
      *
      * @param  string  $field
-     *
      * @return self|FluentFM
      */
     public function sortDesc(string $field): FluentFM
@@ -126,7 +121,6 @@ trait FluentQuery
 
     /**
      * @param $field
-     *
      * @return self|FluentFM
      */
     public function whereEmpty($field): FluentFM
@@ -135,9 +129,8 @@ trait FluentQuery
     }
 
     /**
-     * @param       $field
+     * @param  $field
      * @param  array  $params
-     *
      * @return self|FluentFM
      */
     public function where($field, ...$params): FluentFM
@@ -161,9 +154,8 @@ trait FluentQuery
     }
 
     /**
-     * @param         $field
+     * @param  $field
      * @param  array  $params
-     *
      * @return self|FluentFM
      */
     public function orWhere($field, ...$params): FluentFM
@@ -186,7 +178,6 @@ trait FluentQuery
 
     /**
      * @param  string  $field
-     *
      * @return self|FluentFM
      */
     public function whereNotEmpty(string $field): FluentFM
@@ -196,7 +187,6 @@ trait FluentQuery
 
     /**
      * @param  string  $field
-     *
      * @return self|FluentFM
      */
     public function has(string $field): FluentFM
@@ -247,7 +237,6 @@ trait FluentQuery
      *
      * @param  string  $script
      * @param  null  $param
-     *
      * @return self|FluentFM
      */
     public function prerequest(string $script, $param = null): FluentFM
@@ -262,7 +251,6 @@ trait FluentQuery
      * @param  string  $script
      * @param  null  $param
      * @param  string|null  $type
-     *
      * @return self|FluentFM
      */
     public function script(string $script, $param = null, string $type = null): FluentFM
@@ -284,7 +272,6 @@ trait FluentQuery
      *
      * @param  string  $script
      * @param  null  $param
-     *
      * @return self|FluentFM
      */
     public function presort(string $script, $param = null): FluentFM
