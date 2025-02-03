@@ -13,7 +13,7 @@ class Url
      *
      * @return string
      */
-    public static function records(string $layout, int $id = null): string
+    public static function records(string $layout, ?int $id = null): string
     {
         $record = $id ? '/'.$id : '';
 
