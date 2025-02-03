@@ -46,7 +46,7 @@ abstract class BaseConnection
      *
      * @throws FilemakerException
      */
-    public function __construct(array $config, Client $client = null)
+    public function __construct(array $config, ?Client $client = null)
     {
 		// we merge with the default config containing the newly introduced token cache ttl 
 		// as to keep this new feature backward compatible
