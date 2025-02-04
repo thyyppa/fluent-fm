@@ -16,7 +16,7 @@ class CreateTest extends TestBase
         ]));
 
         $data = [
-            'id'      => 1,
+            'id' => 1,
             'field_x' => 'x',
             'field_y' => 'y',
             'field_z' => 'z',

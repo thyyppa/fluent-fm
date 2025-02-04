@@ -10,7 +10,6 @@ class Url
     /**
      * @param  string  $layout
      * @param  int|null  $id
-     *
      * @return string
      */
     public static function records(string $layout, ?int $id = null): string
@@ -20,20 +19,17 @@ class Url
         return 'layouts/'.$layout.'/records'.$record;
     }
 
-	/**
+    /**
      * @param  string  $layout
-     *
      * @return string
      */
     public static function metadata(string $layout): string
     {
-
         return 'layouts/'.$layout;
     }
 
     /**
      * @param  string  $layout
-     *
      * @return string
      */
     public static function find(string $layout): string
@@ -53,7 +49,6 @@ class Url
      * @param  string  $layout
      * @param  string  $field
      * @param  int  $recordId
-     *
      * @return string
      */
     public static function container(string $layout, string $field, int $recordId): string

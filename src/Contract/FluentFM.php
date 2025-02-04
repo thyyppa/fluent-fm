@@ -12,9 +12,8 @@ interface FluentFM
     /**
      * Get record by record id.
      *
-     * @param $layout
-     * @param $id
-     *
+     * @param  $layout
+     * @param  $id
      * @return FluentFM
      */
     public function record($layout, $id): self;
@@ -22,18 +21,16 @@ interface FluentFM
     /**
      * Get records from filemaker table.
      *
-     * @param      $layout
+     * @param  $layout
      * @param  null  $id
-     *
      * @return FluentFM
      */
     public function records($layout, $id = null): self;
 
-	/**
+    /**
      * Get metadata from filemaker table.
      *
-     * @param      $layout
-     *
+     * @param  $layout
      * @return FluentFM
      */
     public function metadata($layout): self;
@@ -42,7 +39,6 @@ interface FluentFM
      * Find records matching current query parameters.
      *
      * @param  string  $layout
-     *
      * @return mixed
      */
     public function find(string $layout);
@@ -52,8 +48,8 @@ interface FluentFM
      *
      * @param  string  $layout
      * @param  array  $fields
-     *
      * @return int|mixed
+     *
      * @throws FilemakerException
      */
     public function create(string $layout, array $fields = []);
@@ -61,8 +57,8 @@ interface FluentFM
     /**
      * @param  string  $layout
      * @param  array  $fields
-     *
      * @return bool
+     *
      * @throws FilemakerException
      */
     public function globals(string $layout, array $fields = []): bool;
@@ -75,7 +71,6 @@ interface FluentFM
      * @param  string  $layout
      * @param  array  $fields
      * @param  int|null  $recordId
-     *
      * @return mixed
      */
     public function update(string $layout, array $fields = [], ?int $recordId = null);
@@ -88,7 +83,6 @@ interface FluentFM
      * @param  string  $field
      * @param  string  $filename
      * @param  int|null  $recordId
-     *
      * @return mixed
      */
     public function upload(string $layout, string $field, string $filename, ?int $recordId = null);
@@ -102,7 +96,6 @@ interface FluentFM
      * @param  string  $field
      * @param  string  $output_dir
      * @param  int|null  $recordId
-     *
      * @return mixed|self
      */
     public function download(string $layout, string $field, string $output_dir = './', ?int $recordId = null);
@@ -113,7 +106,6 @@ interface FluentFM
      *
      * @param  string  $layout
      * @param  int|null  $recordId
-     *
      * @return mixed
      */
     public function delete(string $layout, ?int $recordId = null);
@@ -125,7 +117,6 @@ interface FluentFM
      *
      * @param  string  $layout
      * @param  int|null  $recordId
-     *
      * @return mixed
      */
     public function softDelete(string $layout, ?int $recordId = null);
@@ -136,7 +127,6 @@ interface FluentFM
      *
      * @param  string  $layout
      * @param  int|null  $recordId
-     *
      * @return mixed
      */
     public function undelete(string $layout, ?int $recordId = null);
@@ -145,8 +135,8 @@ interface FluentFM
      * Get fields for Filemaker table.
      *
      * @param  string  $layout
-     *
      * @return array
+     *
      * @throws FilemakerException
      */
     public function fields(string $layout): array;
@@ -163,6 +153,7 @@ interface FluentFM
 
     /**
      * @return mixed
+     *
      * @throws FilemakerException
      */
     public function exec();
@@ -171,6 +162,7 @@ interface FluentFM
      * Execute the command chain.
      *
      * @return mixed
+     *
      * @throws FilemakerException
      */
     public function get();
@@ -180,8 +172,8 @@ interface FluentFM
      *
      * @param  string  $layout
      * @param  string  $field
-     *
      * @return mixed
+     *
      * @throws FilemakerException
      */
     public function latest(string $layout, string $field = 'created_at');
@@ -191,8 +183,8 @@ interface FluentFM
      *
      * @param  string  $layout
      * @param  string  $field
-     *
      * @return mixed
+     *
      * @throws FilemakerException
      */
     public function lastUpdate(string $layout, string $field = 'updated_at');
@@ -202,8 +194,8 @@ interface FluentFM
      *
      * @param  string  $layout
      * @param  string  $field
-     *
      * @return mixed
+     *
      * @throws FilemakerException
      */
     public function oldest(string $layout, string $field = 'created_at');
@@ -212,6 +204,7 @@ interface FluentFM
      * Execute the command chain.
      *
      * @return mixed
+     *
      * @throws FilemakerException
      */
     public function first();
@@ -220,6 +213,7 @@ interface FluentFM
      * Execute the command chain.
      *
      * @return mixed
+     *
      * @throws FilemakerException
      */
     public function last();
@@ -228,7 +222,6 @@ interface FluentFM
      * Limit the number of results returned.
      *
      * @param  int  $limit
-     *
      * @return FluentFM
      */
     public function limit(int $limit): self;
@@ -237,7 +230,6 @@ interface FluentFM
      * Begin result set at the given record id.
      *
      * @param  int  $offset
-     *
      * @return FluentFM
      */
     public function offset(int $offset): self;
@@ -247,7 +239,6 @@ interface FluentFM
      *
      * @param  string  $field
      * @param  bool  $ascending
-     *
      * @return FluentFM
      */
     public function sort(string $field, bool $ascending = true): self;
@@ -256,7 +247,6 @@ interface FluentFM
      * Sort results ascending by field.
      *
      * @param  string  $field
-     *
      * @return FluentFM
      */
     public function sortAsc(string $field): self;
@@ -265,7 +255,6 @@ interface FluentFM
      * Sort results descending by field.
      *
      * @param  string  $field
-     *
      * @return FluentFM
      */
     public function sortDesc(string $field): self;
@@ -285,30 +274,26 @@ interface FluentFM
     public function withoutPortals(): self;
 
     /**
-     * @param       $field
+     * @param  $field
      * @param  array  $params
-     *
      * @return FluentFM
      */
     public function where($field, ...$params): self;
 
     /**
-     * @param $field
-     *
+     * @param  $field
      * @return FluentFM
      */
     public function whereEmpty($field): self;
 
     /**
      * @param  string  $field
-     *
      * @return FluentFM
      */
     public function has(string $field): self;
 
     /**
      * @param  string  $field
-     *
      * @return FluentFM
      */
     public function whereNotEmpty(string $field): self;
@@ -334,7 +319,6 @@ interface FluentFM
      * @param  string  $script
      * @param  null  $param
      * @param  string|null  $type
-     *
      * @return FluentFM
      */
     public function script(string $script, $param = null, ?string $type = null): self;
@@ -344,7 +328,6 @@ interface FluentFM
      *
      * @param  string  $script
      * @param  null  $param
-     *
      * @return FluentFM
      */
     public function prerequest(string $script, $param = null): self;
@@ -354,7 +337,6 @@ interface FluentFM
      *
      * @param  string  $script
      * @param  null  $param
-     *
      * @return FluentFM
      */
     public function presort(string $script, $param = null): self;

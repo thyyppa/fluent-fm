@@ -41,8 +41,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->callback = function () use ($layout, $id) {
             $response = $this->client->get(Url::records($layout, $id), [
                 'Content-Type' => 'application/json',
-                'headers'      => $this->authHeader(),
-                'query'        => $this->queryString(),
+                'headers' => $this->authHeader(),
+                'query' => $this->queryString(),
             ]);
 
             Response::check($response, $this->queryString());
@@ -53,7 +53,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         return $this;
     }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public function metadata($layout): FluentFM
@@ -61,8 +61,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->callback = function () use ($layout) {
             $response = $this->client->get(Url::metadata($layout), [
                 'Content-Type' => 'application/json',
-                'headers'      => $this->authHeader(),
-                'query'        => $this->queryString(),
+                'headers' => $this->authHeader(),
+                'query' => $this->queryString(),
             ]);
 
             Response::check($response, $this->queryString());
@@ -81,8 +81,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->callback = function () use ($layout) {
             $response = $this->client->post(Url::find($layout), [
                 'Content-Type' => 'application/json',
-                'headers'      => $this->authHeader(),
-                'json'         => $this->queryJson(),
+                'headers' => $this->authHeader(),
+                'json' => $this->queryJson(),
             ]);
 
             Response::check($response, $this->queryJson());
@@ -105,8 +105,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->callback = function () use ($layout, $fields) {
             $response = $this->client->post(Url::records($layout), [
                 'Content-Type' => 'application/json',
-                'headers'      => $this->authHeader(),
-                'json'         => ['fieldData' => array_filter($fields)],
+                'headers' => $this->authHeader(),
+                'json' => ['fieldData' => array_filter($fields)],
             ]);
 
             Response::check($response, ['fieldData' => array_filter($fields)]);
@@ -131,8 +131,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
             $response = $this->client->patch(Url::globals(), [
                 'Content-Type' => 'application/json',
-                'headers'      => $this->authHeader(),
-                'json'         => ['globalFields' => array_filter($globals)],
+                'headers' => $this->authHeader(),
+                'json' => ['globalFields' => array_filter($globals)],
             ]);
 
             Response::check($response, ['globalFields' => array_filter($globals)]);
@@ -162,8 +162,8 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             foreach ($recordIds as $id) {
                 $response = $this->client->patch(Url::records($layout, $id), [
                     'Content-Type' => 'application/json',
-                    'headers'      => $this->authHeader(),
-                    'json'         => ['fieldData' => $fields],
+                    'headers' => $this->authHeader(),
+                    'json' => ['fieldData' => $fields],
                 ]);
 
                 Response::check($response, ['fieldData' => $fields]);
@@ -186,10 +186,10 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             foreach ($recordIds as $id) {
                 $response = $this->client->post(Url::container($layout, $field, $id), [
                     'Content-Type' => 'multipart/form-data',
-                    'headers'      => $this->authHeader(),
-                    'multipart'    => [
+                    'headers' => $this->authHeader(),
+                    'multipart' => [
                         [
-                            'name'     => 'upload',
+                            'name' => 'upload',
                             'contents' => fopen($filename, 'rb'),
                             'filename' => basename($filename),
                         ],
@@ -199,7 +199,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
                 Response::check($response, [
                     'multipart' => [
                         [
-                            'name'     => 'upload',
+                            'name' => 'upload',
                             'contents' => '...',
                             'filename' => basename($filename),
                         ],
@@ -230,7 +230,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
             }
 
             $downloader = new Client([
-                'verify'  => false,
+                'verify' => false,
                 'headers' => $this->authHeader(),
                 'cookies' => true,
             ]);
@@ -264,11 +264,11 @@ class FluentFMRepository extends BaseConnection implements FluentFM
         $this->callback = function () use ($layout, $recordId) {
             $recordIds = $recordId ? [$recordId] : array_keys($this->find($layout)->get());
 
-			// if we haven't found anything to delete
-			if(!$recordIds) {
-				// don't attempt to delete anything, since that would fail
-				return true;
-			}
+            // if we haven't found anything to delete
+            if (! $recordIds) {
+                // don't attempt to delete anything, since that would fail
+                return true;
+            }
 
             foreach ($recordIds as $id) {
                 $response = $this->client->delete(Url::records($layout, $id), [
@@ -483,9 +483,9 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     public function __destruct()
     {
         try {
-	    // only destroy the token on Filemaker if we don't have a caching mechanism available
-            if(!$this->isCacheAvailable()) {
-               $this->logout(); 
+            // only destroy the token on Filemaker if we don't have a caching mechanism available
+            if (! $this->isCacheAvailable()) {
+                $this->logout();
             }
             unset($this->client);
         } catch (\Exception $e) {

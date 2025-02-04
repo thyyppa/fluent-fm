@@ -6,7 +6,6 @@ class ExceptionMessages
 {
     /**
      * @param  string  $message
-     *
      * @return string
      */
     protected static function baseMessage($message): string
@@ -15,23 +14,21 @@ class ExceptionMessages
     }
 
     /**
-     * @param       $message
+     * @param  $message
      * @param  array  $query
-     *
      * @return string
      */
     public static function generic($message, array $query): string
     {
         return self::format(self::sep(self::baseMessage($message))
                             .self::textWrap(
-                '<fg=green>This is the payload that was sent to FileMaker:</>'.PHP_EOL.self::queryDump($query)
-            ).self::sep());
+                                '<fg=green>This is the payload that was sent to FileMaker:</>'.PHP_EOL.self::queryDump($query)
+                            ).self::sep());
     }
 
     /**
-     * @param       $message
+     * @param  $message
      * @param  array  $query
-     *
      * @return string
      */
     public static function fieldMissing($message, array $query): string
@@ -48,9 +45,8 @@ class ExceptionMessages
     }
 
     /**
-     * @param       $message
+     * @param  $message
      * @param  array  $query
-     *
      * @return string
      */
     public static function fieldInvalid($message, array $query): string
@@ -66,7 +62,7 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
 
         return self::format(self::sep(self::baseMessage($message))
                             .self::textWrap(
-                'FileMaker did not specify which field, so here are some tips:
+                                'FileMaker did not specify which field, so here are some tips:
 
 - This is often due to <fg=white>creating a record</> without the <fg=white>`id`</> field. 
 - Ensure that you are including all fields that are <fg=white>defined as required</> by the FileMaker table.
@@ -74,8 +70,8 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
 - If you have a <fg=white>unique `id` field</>, make sure the id <fg=white>is not already set</>.
 
 <fg=green>Please review the payload that was sent:</>'
-                .PHP_EOL.$dump.$note
-            ).self::sep());
+                                .PHP_EOL.$dump.$note
+                            ).self::sep());
     }
 
     /**
@@ -83,7 +79,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      *
      * @param  string  $title
      * @param  int  $len
-     *
      * @return string
      */
     public static function sep(string $title = '', int $len = 120): string
@@ -101,7 +96,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      *
      * @param  string  $string
      * @param  int  $len
-     *
      * @return string
      */
     public static function textWrap(string $string, int $len = 120): string
@@ -113,7 +107,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      * Strip CLI formatting if not in CLI.
      *
      * @param  string  $message
-     *
      * @return string
      */
     protected static function format(string $message): string
@@ -135,7 +128,6 @@ Note:: This payload does seem to be <fg=white;options=bold>missing the `id` fiel
      * ];.
      *
      * @param  array  $query
-     *
      * @return string
      */
     protected static function queryDump(array $query): string

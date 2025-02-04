@@ -15,7 +15,6 @@ class Response
      * Get response body contents.
      *
      * @param  ResponseInterface  $response
-     *
      * @return mixed
      */
     public static function body(ResponseInterface $response)
@@ -30,7 +29,6 @@ class Response
      *
      * @param  ResponseInterface  $response
      * @param  bool  $with_portals
-     *
      * @return array
      */
     public static function records(ResponseInterface $response, bool $with_portals = false): array
@@ -44,11 +42,10 @@ class Response
         return $records;
     }
 
-	/**
+    /**
      * Get response returned metadata.
      *
      * @param  ResponseInterface  $response
-     *
      * @return array
      */
     public static function metadata(ResponseInterface $response): array
@@ -66,7 +63,6 @@ class Response
      * Get response returned message.
      *
      * @param  ResponseInterface  $response
-     *
      * @return mixed
      */
     public static function message(ResponseInterface $response)
