@@ -265,7 +265,7 @@ trait FluentQuery
      *
      * @return self|FluentFM
      */
-    public function script(string $script, $param = null, string $type = null): FluentFM
+    public function script(string $script, $param = null, ?string $type = null): FluentFM
     {
         $base = 'script';
 

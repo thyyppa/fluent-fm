@@ -75,7 +75,7 @@ abstract class BaseConnection
      *
      * @return array|mixed
      */
-    protected function config(string $key = null)
+    protected function config(?string $key = null)
     {
         return $key ? $this->config[$key] : $this->config;
     }
