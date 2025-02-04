@@ -34,7 +34,6 @@ class TestBase extends TestCase
 
     /**
      * @param  array  $responses
-     *
      * @return Client
      */
     protected function client(array $responses = []): Client
@@ -56,7 +55,6 @@ class TestBase extends TestCase
     /**
      * @param  array  $expected
      * @param  array  $actual
-     *
      * @return self
      */
     protected function assertArrayHas(array $expected, array $actual): self
@@ -78,7 +76,6 @@ class TestBase extends TestCase
     /**
      * @param  array  $expected
      * @param  array  $actual
-     *
      * @return self
      */
     protected function assertArrayHasFuzzy(array $expected, array $actual): self
@@ -98,9 +95,8 @@ class TestBase extends TestCase
     }
 
     /**
-     * @param          $expected
+     * @param  $expected
      * @param  string  $actual
-     *
      * @return self
      */
     protected function assertJsonLike($expected, string $actual): self
@@ -114,9 +110,8 @@ class TestBase extends TestCase
     }
 
     /**
-     * @param                      $expected
+     * @param  $expected
      * @param  JsonAndArrayOutput  $actual
-     *
      * @return self
      */
     protected function assertJsonAndArrayLike($expected, JsonAndArrayOutput $actual): self
