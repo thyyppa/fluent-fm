@@ -16,7 +16,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
 
     protected $auto_id = true;
 
-    public function __construct(array $config, Client $client = null)
+    public function __construct(array $config, ?Client $client = null)
     {
         parent::__construct($config, $client);
 
@@ -146,7 +146,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     /**
      * {@inheritdoc}
      */
-    public function update(string $layout, array $fields = [], int $recordId = null): FluentFM
+    public function update(string $layout, array $fields = [], ?int $recordId = null): FluentFM
     {
         $this->callback = function () use ($layout, $fields, $recordId) {
             $recordIds = [$recordId];
@@ -178,7 +178,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     /**
      * {@inheritdoc}
      */
-    public function upload(string $layout, string $field, string $filename, int $recordId = null): FluentFM
+    public function upload(string $layout, string $field, string $filename, ?int $recordId = null): FluentFM
     {
         $this->callback = function () use ($layout, $field, $filename, $recordId) {
             $recordIds = $recordId ? [$recordId] : array_keys($this->find($layout)->get());
@@ -216,7 +216,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     /**
      * {@inheritdoc}
      */
-    public function download(string $layout, string $field, string $output_dir = './', int $recordId = null): FluentFM
+    public function download(string $layout, string $field, string $output_dir = './', ?int $recordId = null): FluentFM
     {
         $this->callback = function () use ($layout, $field, $output_dir, $recordId) {
             if ($recordId) {
@@ -259,7 +259,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     /**
      * {@inheritdoc}
      */
-    public function delete(string $layout, int $recordId = null): FluentFM
+    public function delete(string $layout, ?int $recordId = null): FluentFM
     {
         $this->callback = function () use ($layout, $recordId) {
             $recordIds = $recordId ? [$recordId] : array_keys($this->find($layout)->get());
@@ -287,7 +287,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     /**
      * {@inheritdoc}
      */
-    public function softDelete(string $layout, int $recordId = null): FluentFM
+    public function softDelete(string $layout, ?int $recordId = null): FluentFM
     {
         return $this->update(
             $layout,
@@ -299,7 +299,7 @@ class FluentFMRepository extends BaseConnection implements FluentFM
     /**
      * {@inheritdoc}
      */
-    public function undelete(string $layout, int $recordId = null): FluentFM
+    public function undelete(string $layout, ?int $recordId = null): FluentFM
     {
         return $this->update(
             $layout,

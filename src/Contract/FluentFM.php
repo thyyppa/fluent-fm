@@ -78,7 +78,7 @@ interface FluentFM
      *
      * @return mixed
      */
-    public function update(string $layout, array $fields = [], int $recordId = null);
+    public function update(string $layout, array $fields = [], ?int $recordId = null);
 
     /**
      * Upload a file to a container in recordId, if no record id specified
@@ -91,7 +91,7 @@ interface FluentFM
      *
      * @return mixed
      */
-    public function upload(string $layout, string $field, string $filename, int $recordId = null);
+    public function upload(string $layout, string $field, string $filename, ?int $recordId = null);
 
     /**
      * Download contents of container field to directory.
@@ -105,7 +105,7 @@ interface FluentFM
      *
      * @return mixed|self
      */
-    public function download(string $layout, string $field, string $output_dir = './', int $recordId = null);
+    public function download(string $layout, string $field, string $output_dir = './', ?int $recordId = null);
 
     /**
      * Delete record from table. If record id not provided all records matching
@@ -116,7 +116,7 @@ interface FluentFM
      *
      * @return mixed
      */
-    public function delete(string $layout, int $recordId = null);
+    public function delete(string $layout, ?int $recordId = null);
 
     /**
      * Sets deleted_at field on table for recordId. If no recordId
@@ -128,7 +128,7 @@ interface FluentFM
      *
      * @return mixed
      */
-    public function softDelete(string $layout, int $recordId = null);
+    public function softDelete(string $layout, ?int $recordId = null);
 
     /**
      * Clears deleted_at field on table for recordId. If no recordId
@@ -139,7 +139,7 @@ interface FluentFM
      *
      * @return mixed
      */
-    public function undelete(string $layout, int $recordId = null);
+    public function undelete(string $layout, ?int $recordId = null);
 
     /**
      * Get fields for Filemaker table.
@@ -337,7 +337,7 @@ interface FluentFM
      *
      * @return FluentFM
      */
-    public function script(string $script, $param = null, string $type = null): self;
+    public function script(string $script, $param = null, ?string $type = null): self;
 
     /**
      * Run FileMaker script with param before requested action.
